@@ -1,0 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.test{
+    padding:10px;  border:#ddd solid 5px; margin: 10px;
+ }
