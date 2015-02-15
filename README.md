@@ -1,8 +1,12 @@
 # libraries_javascript
  V 0.0.2 
-
-##Javascript Prototype Library 
-
+##specification 
+    htmlelement 
+    math
+     point 2D,3D
+     vector 2D,3D
+    array
+    storage
 ### htmlelement
 #### CSS
 #####css
@@ -82,4 +86,3 @@
      * @param {Number} maxLenght as n
      * @param {Boolean (optional)shift|pop} isShift as shift
      * @returns {Boolean}
-www.webworkshops.fr 
