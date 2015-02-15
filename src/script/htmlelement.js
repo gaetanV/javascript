@@ -218,7 +218,7 @@
             return true;
         } else {
             if (typeof d === "object") {
-                if (Object.prototype.toString.call(d) === "[object Object]" || Object.prototype.toString.call(d) === "[object Array]") {
+                if (d.toString(d) === "[object Object]" || d.toString(d) === "[object Array]") {
                     d = JSON.stringify(d);
                     this.insertAdjacentHTML('beforeend', d);
                 }
@@ -243,7 +243,7 @@
             this.insertAdjacentHTML('afterbegin', d);
             return true;
         } else {
-              if (Object.prototype.toString.call(d) === "[object Object]" || Object.prototype.toString.call(d) === "[object Array]") {
+              if (d.toString(d) === "[object Object]" || d.toString(d)=== "[object Array]") {
                     d = JSON.stringify(d);
                     this.insertAdjacentHTML('afterbegin', d);
                 }

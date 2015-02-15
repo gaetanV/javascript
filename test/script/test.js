@@ -16,7 +16,20 @@
          vm.dom=msgDom;
      };
      
+     testU.prototype.try=function(f){
+         try{
+             f
+         }
+         catch(e){
+             if(typeof(e)==="object"){
+                 e=e.toString();
+             }
+             this.prototype.log(e);
+         }
+     }
+     
      testU.prototype.log=function(message){
+ 
          switch(typeof(message)){
               case "number":
                    message=message.toString();
@@ -25,6 +38,9 @@
                  break;
               case "object":
                    this.dom.insertAdjacentHTML('beforeend', "<p>"+JSON.stringify(message)+"</p>");
+                 break;
+             default:
+                  this.dom.insertAdjacentHTML('beforeend', "<p>"+typeof(message)+"</p>");
                  break;
          }
      };
