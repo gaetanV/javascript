@@ -46,23 +46,132 @@
      * @returns {Boolean}
 
 ### math
+
 ####Angle (.angle)
 #####toRad
+         * @syntax toRad(deg)
+         * @param {Float} deg
+         * @returns {Float}
 #####toDeg
+        * @syntax toDeg(rad)
+         * @param {Float} rad
+         * @returns {Float}
+
+
 ####Point (.point)
 #####rotation
-     *3D to DO
+        * @syntax rotation(p,pCenter angle, plan)
+         * @param {Point} p
+         * @param {Point} pCenter 
+         * @param {String} angle
+         *  after operator optional("deg|rad")
+         * @param {String} plan (optional) xy|xz
+         * @returns {Point}
+ #####vector
+         * @syntax vector(p1,p2)
+         * @param {Point} p1
+         * @param {Point} p2
+         * @returns {Vector}
 #####distance
-####Vecteur (.vecteur)
-#####produitVectoriel
-#####produitScalaire
-#####cross 
-     *to DO
+         * @syntax distance(p1,p2)
+         * @param {Point} p1
+         * @param {Point} p2
+         * @returns {Float}
 
-###point2
-###point3
-###vecteur2
-###vecteur3
+
+####Vector (.vector)
+#####vectorProduct
+         * @syntax vectorProduct(v1,v2 )
+         * @param {Vector} v1
+         * @param {Vector} v2
+         * @returns {Float}
+#####scalarProduct
+         * @syntax scalarProduct(v1,v2 )
+         * @param {Vector} v1
+         * @param {Vector} v2
+         * @returns {Vector}
+#####angle
+         * @syntax angle(v1,v2,type)
+         * @param {Vector} v1
+         * @param {Vector} v2
+         * @param {String} optionnal(deg|rad) type
+         * @returns {Float}
+#####normalize 
+         * @syntax normalize( v1)
+         * @param {Vector} v1
+         * @returns {Vector}
+#####cross 
+         * @syntax cross(v1,v2)
+         * @param {Vector} v1
+         * @param {Vector} v2
+         * @returns {Point}
+
+###Number
+#####sign
+     * @syntax sign()
+     * @returns {integer} 1|0|-1
+
+###point
+#####constructor
+     * @syntax point()
+#####toString
+     * @syntax toString()
+     * @returns {String} [object point]
+#####rotation
+     * @syntax rotation(point2, angle, plan)
+     * @param {Point} point2
+     * @param {String} angle
+     *  after operator optional("deg|rad")
+     * @param {String} plan (optional)xy|xz
+     * @returns {Self}
+#####distance
+     * @syntax distance(p2)
+     * @param {Point} p2
+     * @returns {Float}
+#####vector
+     * @syntax vector(p2)
+     * @param {Point} p2
+     * @returns {vector}
+     * vector with points
+####zTriangle
+     * @syntax zTriangle(p1,p2,p3)
+     * @param {Point} p1
+     * @param {Point} p2
+     * @param {Point} p3
+     * @returns {Self }
+     * + self z
+
+###vector
+#####constructor
+     * @syntax vector()
+#####toString
+     * @syntax toString()
+     * @returns {String} [object vector]
+#####setPoint
+     * @syntax setPoint(p1,p2 )
+     * @param {Point} p1
+     * @param {Point} p2 
+     * @returns {Self} + p1 + p2
+#####vectorProduct
+     * @syntax vectorProduct(v2 )
+     * @param {Vector} v2
+     * @returns {Float}
+#####scalarProduct
+     * @syntax scalarProduct(v2 )
+     * @param {Vector} v2
+     * @returns {Vector}
+#####normalize
+     * @syntax normalize( )
+     * @returns {Vector}
+#####cross
+     * @syntax cross(v2)
+     * @param {Vector} v2
+     * @returns {Point}
+#####angle
+     * @syntax angle(v2,type)
+     * @param {Vector} v2
+     * @param {String} optionnal(deg|rad) type
+     * @returns {Float}
 
 ### storage
 #####setObject
