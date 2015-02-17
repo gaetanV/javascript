@@ -67,7 +67,7 @@
          *  after operator optional("deg|rad")
          * @param {String} plan (optional) xy|xz
          * @returns {Point}
- #####vector
+#####vector
          * @syntax vector(p1,p2)
          * @param {Point} p1
          * @param {Point} p2
