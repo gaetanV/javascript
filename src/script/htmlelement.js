@@ -38,8 +38,8 @@
          * @returns {Integer}
          */
         function processInteger(sO, sN, process) {
-            var intO = parseInt(sO);
-            var intN = parseInt(sN);
+            var intO = parseFloat(sO);
+            var intN = parseFloat(sN);
             var v;
             switch (process) {
                 case "+=":

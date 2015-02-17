@@ -1,48 +1,55 @@
-var point2, point3, vector3 ,vector2;
+var point,vector;
 
 (function() {
     'use strict';
 
     /*POINT*/
     /*2D*/
-    point2 = function(x, y) {
+    point = function(x, y, z) {
         this.x = parseFloat(x);
         this.y = parseFloat(y);
+        this.z=z|0;
     };
-    point2.prototype.toString=function(){
-        return "[object point2]";
+    point.prototype.toString=function(){
+        return "[object point]";
     };
     
-    point2.prototype.rotation = function(point2, angle, type) {
-        var V = Math.point.rotation(this, point2, angle, type);
+    point.prototype.rotation = function(point2, angle, plan) {
+        var V = Math.point.rotation(this, point2, angle, plan);
         this.x = V.x;
         this.y = V.y;
+        this.z = V.z;
     };
 
-    point2.prototype.distanceTo = function(point2) {
+    point.prototype.distanceTo = function(point2) {
         return Math.point.distance(this, point2);
     };
-
-    /*3D*/
-    point3 = function(x, y, z) {
-        this.x = parseFloat(x);
-        this.y = parseFloat(y);
-        this.z = parseFloat(z);
-    };
-     point2.prototype.toString=function(){
-        return "[object point3]";
+    
+    point.prototype.vector=function(p1){
+        var v=Math.point.vector(this,p1);
+        v.p1=p1;
+        v.p2=this;
+        return v ;
     };
     
-    point3.prototype.rotation = function(point3, angle, type) {
-        var V = Math.point.rotation(this, point3, angle, type); //TODO
-        this.x = V.x;
-        this.y = V.y;
-        this.z = V.y;
-    };
+    point.prototype.zbyvector=function(v1,v2){
+        /*TO DO + TEST*/
+           if(v1.p1 && v1.p2  && v2.p1 && v2.p2){
+              
+                var p1=v1.p1;
+                var p2=v1.p2;
+                ///SI P1=P2
+                  var N = produitVectoriel(v1,v2);
+                
+                  return  -(N.vx*(this.x-p2.x) + N.vy*(this.y-p2.y))/N.vz + p2.z;
+            }else{
+                   throw new Error( "zbyvector() The arguments must be a vector with point");
+            }
+            return false;
+    }
 
-    point3.prototype.distanceTo = function(point3) {
-        return Math.point.distance(this, point3); //TODO
-    };
+
+
 
     var toolsAngle = function() {
         var toolsAngle = {
@@ -65,18 +72,30 @@ var point2, point3, vector3 ,vector2;
     var toolsPoint = function() {
         var toolsPoint = {
             rotation: rotation,
-            distance: distance
+            distance: distance,
+            vector:vectorBetween
         };
         return toolsPoint;
 
-        function distance(v1, v2) {
-           if(v1 && v2){
-                if( typeof v1.x ==="number" && typeof v1.y==="number"){
-                    if( typeof v2.x ==="number" && typeof v2.y==="number"){
-                             if(typeof v1.z==="number" || typeof v2.z==="number") {
-                               return Math.sqrt(Math.pow((v1.x - v2.x), 2) + Math.pow((v1.y - v2.y), 2)+ Math.pow((v1.z|0 - v2.z|0), 2));
+        function vectorBetween(p1, p2) {
+
+             var v=new vector( p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
+             v.p1=p1;
+             v.p2=p2;
+             return (v);
+        }
+
+        function distance(p1, p2) {
+         
+           if(p1 && p2){
+                if( typeof p1.x ==="number" && typeof p1.y==="number"){
+                    if( typeof p2.x ==="number" && typeof p2.y==="number"){
+                             if(typeof p1.z==="number" || typeof p2.z==="number") {
+                                p1.z= p1.z?p1.z:0;
+                                p2.z= p2.z?p2.z:0;
+                               return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2)+ Math.pow((p1.z - p2.z), 2));
                              }
-                             else  return Math.sqrt(Math.pow((v1.x - v2.x), 2) + Math.pow((v1.y - v2.y), 2));
+                             else  return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2));
                      }else{
                            throw new Error( "distance() x & y from second argument must be a number");
                      }
@@ -87,25 +106,53 @@ var point2, point3, vector3 ,vector2;
             return false;
         }
 
-        function rotation(v, vCenter, angle, typeA) {
-            var diffXT = v.x - vCenter.x;
-            var diffYT = v.y - vCenter.y;
-            var x, y;
-            switch (typeA) {
-                case "rad":
-                    break;
-                case "deg":
-                default :
-                    angle = Math.angle.toRad(angle);
-                    break;
-            } ;
-             
-            x = diffXT * Math.cos(angle) - diffYT * Math.sin(angle);
-            y = diffXT * Math.sin(angle) + diffYT * Math.cos(angle);
-            x = Math.round(x * 100) / 100;
-            y = Math.round(y * 100) / 100;
-            var position = new point2((x + vCenter.x), (y + vCenter.y));
-            return position;
+        function rotation(v, vCenter, angle ,plan) {
+            if(typeof plan==="undefined")  plan="xy";
+            
+        
+            if( typeof angle=="string" ||  typeof angle=="number" ){
+          
+                
+                 if( typeof angle=="string"){
+                       var s = angle.substring( angle.length-3, angle.length);
+                       angle = angle.trim();
+                       angle = angle.replace("PI", Math.PI);
+   
+                        switch (s) {
+                            case "rad":
+                                   angle= angle.substring(0 ,angle.length-3);
+                                    angle=eval(angle);
+                                break;
+                            case "deg":
+                                   angle= angle.substring(0 ,angle.length-3);
+                            default :
+                                angle=eval(angle);
+                                angle = Math.angle.toRad(angle);
+                                break;
+                        } ;
+                  }else{
+                        angle = Math.angle.toRad(angle);
+                  }
+                  switch(plan){
+                      case "xz":
+                          //TO DO 
+                        break;
+                      case "xy":
+                      default:
+                          var diffXT = v.x - vCenter.x;
+                          var diffYT = v.y - vCenter.y;
+                           var x, y;
+                            x = diffXT * Math.cos(angle) - diffYT * Math.sin(angle);
+                            y = diffXT * Math.sin(angle) + diffYT * Math.cos(angle);
+                            x = Math.round(x * 100) / 100;
+                            y = Math.round(y * 100) / 100;
+                            var position = new point((x + vCenter.x), (y + vCenter.y));
+                            return position;
+                          break;
+                  }         
+            }else{
+                return false;
+            }
         }
         ;
 
@@ -113,81 +160,105 @@ var point2, point3, vector3 ,vector2;
     Math.point = toolsPoint();
 
     /*VECTEUR*/
-    
-    /*2D*/
-    vector2 = function(vx, vy) {
-        this.vx = vx;
-        this.vy = vy;
+   
+    vector = function(vx,vy,vz) {
+ 
+        this.vx = vx?vx:0;
+        this.vy = vy?vy:0;
+        this.vz = vz?vz:0;
     };
-    vector2.prototype.toString=function(){
-        return "[object vector2]";
-    };
-    
-    vector2.prototype.produitVectoriel=function(v2){
-        return produitVectoriel(this,v2);
-    };
-    
-    vector2.prototype.produitScalaire=function(v2){
-        return produitScalaire(this,v2);
-    };
-    
-     /*3D*/
-    vector3 = function(vx, vy, vz) {
-        this.vx = vx;
-        this.vy = vy;
-        this.vz = vz;
+
+   vector.prototype.setPoint=function(p1, p2){
+          var V= Math.point.vector(p1, p2);
+          this.vx = V.vx;
+          this.vy = V.vy;
+          this.vz = V.vz;
+          this.p1=p1;
+          this.p2=p2;
     };
     
-    vector3.prototype.toString=function(){
-        return "[object vector3]";
+    vector.prototype.toString=function(){
+        return "[object vector]";
     };
     
-    vector3.prototype.produitVectoriel=function(v2){
-        return produitVectoriel(this,v2);
+    vector.prototype.produitVectoriel=function(v2){
+        return Math.vector.produitVectoriel(this,v2);
     };
     
-    vector3.prototype.produitScalaire=function(v2){
-        return produitScalaire(this,v2);
+    vector.prototype.produitScalaire=function(v2){
+        return Math.vector.produitScalaire(this,v2);
     };
+    
+    vector.prototype.normalize=function(){
+        return Math.vector.normalize(this); 
+    };
+ 
+    vector.prototype.cross=function(v2){
+         return Math.vector.cross(this,v2); 
+    };
+    
     
     var toolsVecteur = function() {
         var toolsVecteur = {
             produitVectoriel: produitVectoriel,
             produitScalaire: produitScalaire,
+            normalize:normalize,
             cross:cross
         };
         return toolsVecteur;
         
         function produitVectoriel(v1,v2){
+             //TO DO TEST
               var vS= v1.toString();
               var vS2= v2.toString();
-              if(  (vS ==="[object vector2]" || vS==="[object vector3]" ) && (vS2 ==="[object vector2]" || vS2==="[object vector3]" ) ){
-                  return (
-                            new vector3((v1.vy*(v2.vz|0)-v2.vy*(v1.vz|0)),(v1.vz*v2.vx-(v2.vz|0)*v1.vx), (v1.vx*v2.vy-v2.vx*v1.vy))
-                  );
+              if(  (vS ==="[object vector]" && vS2==="[object vector]" )  ){
+                  var v= new vector((v1.vy*(v2.vz)-v2.vy*(v1.vz)) , (v1.vz*v2.vx-(v2.vz)*v1.vx) ,  (v1.vx*v2.vy-v2.vx*v1.vy));
+                  return (v);
               }else{
-                   throw new Error( "produitVectoriel() The arguments must be à vecteur of two or three dimensional");
+                   throw new Error( "produitVectoriel() The arguments must be a vector");
               }
               return false;
         };
         
         function produitScalaire(v1,v2){
-              var vS= v1.toString();
-              var vS2= v2.toString();
-              if(  (vS ==="[object vector2]" || vS==="[object vector3]" ) && (vS2 ==="[object vector2]" || vS2==="[object vector3]" ) ){
-                     return (v1.vx*v2.vx + v1.vy*v2.vy +(v1.vz|0)*(v2.vz|0));
-                }else{
-                   throw new Error( "produitScalaire() The arguments must be à vecteur of two or three dimensional");
-              }  return false;
+            if(typeof v1=="object" && typeof v2=="object"){
+                var vS= v1.toString();
+                var vS2= v2.toString();
+                if(  (vS ==="[object vector]" && vS2==="[object vector]" )  ){
+                           var result=(v1.vx*v2.vx) + (v1.vy*v2.vy) + (v1.vz*v2.vz);
+                       return result ;
+                  }else{
+                     throw new Error( "produitScalaire() The arguments must be a vector");
+                } throw new Error( "produitScalaire() The arguments must be a object");
+            }
+             return false;
         };
         
+        function normalize (v1){
+            var norme = Math.sqrt(v1.vx*v1.vx + v1.vy*v1.vy + v1.vz*v1.vz);
+            var v=new vector(v1.vx/norme, v1.vy/norme, v1.vz/norme);
+            v.p1=new point(0,0,0);
+            v.p2=new point(v.vx,v.vy,v.vz);
+            return (v);
+        }
         
-        function cross(){
-            
+        function cross(v1,v2){
+               if(v1.p1 && v1.p2  && v2.p1 && v2.p2){
+                        var  a=v1.vy===0?0:(v1.vy)/(v1.vx);
+                        var b=v1.p1.y-(a*v1.p1.x) ;
+                        var c=v2.vy===0?0:(v2.vy)/(v2.vx);
+                        var d=v2.p1.y-(c*v2.p1.x) ;
+                        var x=(d-b)/(a-c);
+                        var y=a*x+b;
+                        return new point(x,y);
+                }else{
+                       throw new Error( "cross() The arguments must be a vector with point");
+                }
+                return false;     
         };
         
     };
-    Math.vecteur = toolsVecteur();
+    Math.vector = toolsVecteur();
 
 
 })();
