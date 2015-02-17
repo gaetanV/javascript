@@ -1,12 +1,13 @@
 # libraries_javascript
  V 0.0.2 
 ##specification 
-    htmlelement 
-    math
-     point 2D,3D
-     vector 2D,3D
-    array
-    storage
+    Htmlelement 
+    Number 
+    Math
+    + point 
+    + vector
+    Array
+    Storage
 ### htmlelement
 #### CSS
 #####css
