@@ -26,6 +26,9 @@
 
     /*APPEND PREPEND*/
     domInsert();
+    
+    
+    dom();
 
 
     function css() {
@@ -93,6 +96,10 @@
         domDiv.after(txt4);
         domDiv.after("<div>after 3</div>");
     }
-
+    
+    function dom() {
+        test.log("width: "+domDiv.width());
+          test.log("height: "+domDiv.height());
+    };
 
 })();

@@ -27,6 +27,13 @@
      * @param {String} classNames as n
      * accept multi string as array with space character
      * @returns {Boolean}
+#### DOM 
+#####width
+     * @syntax width()
+     * @returns {Integer}
+#####height
+     * @syntax height()
+     * @returns {Integer}
 #### DOM Insertion, Inside
 #####append
      * @syntax append(value)

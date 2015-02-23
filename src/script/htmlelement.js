@@ -114,6 +114,22 @@
     }();
 
     /**
+     * @syntax width()
+     * @returns {Integer}
+     */
+    HTMLElement.prototype.width = function() {
+        return this.offsetWidth ;
+    };
+
+     /**
+     * @syntax width()
+     * @returns {Integer}
+     */
+    HTMLElement.prototype.height = function() {
+        return this.offsetHeight ;
+    };
+
+    /**
      * @syntax css(cssNames,operator)
      * @param {String} cssNames as p
      * @param {String} operator as v
