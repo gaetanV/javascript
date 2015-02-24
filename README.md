@@ -1,5 +1,5 @@
 # libraries_javascript
- V 0.0.2 
+ V 0.0.3
 ##specification 
     Htmlelement 
     Number 
