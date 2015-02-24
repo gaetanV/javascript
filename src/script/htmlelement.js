@@ -122,7 +122,7 @@
     };
 
      /**
-     * @syntax width()
+     * @syntax height()
      * @returns {Integer}
      */
     HTMLElement.prototype.height = function() {

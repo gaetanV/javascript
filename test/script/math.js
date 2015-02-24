@@ -16,7 +16,8 @@
     var V0 = new point(0, 0, 0);
     var V1 = new point(0, 0, 1);
     var V2 = new point(0, 1, 1);
-
+    
+    pointBelong();
     distance2D();
     distance3D();
     rotation2D();
@@ -25,12 +26,36 @@
     rotation3D();
     zTriangle();
 
-
+    function pointBelong() {
+          test.log("<br/>POINT BELONG");
+           var graph = test.graph();
+             var p0 = new point(0, 0, 0);
+             
+             var p1 = new point(2, 0, 0);
+             var p3 = new point(1, 0, 0);
+             
+             var p4 = new point(3, 0, 0);
+             var p5 = new point(1, 2, 0);
+             var p6 = new point(0, 0, 1);
+            graph.point2D(p3);
+            graph.point2D(p4);
+             graph.point2D(p5);
+              graph.point2D(p6);
+              
+             var v=new vector();
+             v.setPoint(p0,p1);
+            graph.vector2D(v);
+           test.log( "0, 0, 0 : "+ Math.vector.pointBelong(v,p0)) ;
+           test.log( "1, 0, 0 : "+Math.vector.pointBelong(v,p3)) ;
+           test.log( "3, 0, 0 : "+Math.vector.pointBelong(v,p4)) ;
+           test.log( "1, 2, 0 : "+Math.vector.pointBelong(v,p5)) ;
+           test.log( "0, 0, 1 : "+Math.vector.pointBelong(v,p6)) ;
+    };
 
     function distance2D() {
 
 
-        test.log("DISTANCE");
+        test.log("<br/>DISTANCE");
 
         var graph = test.graph();
         graph.ligne2D(v1, v2);
@@ -149,6 +174,7 @@
 
         var vector2 = new vector();
         vector2.setPoint(v1, v2);
+   
         //   test.log("vector2");
         //  test.log(vector2);
 
@@ -198,7 +224,7 @@
 
         graph.vector2D(vector1);
         graph.vector2D(vector2);
-        test.log(Math.vector.angle(vector1, vector2));
+        test.log(Math.vector.angleBetweenVector(vector1, vector2));
 
     }
 

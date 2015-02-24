@@ -98,8 +98,10 @@
          * @param {Vector} v1
          * @param {Vector} v2
          * @returns {Vector}
-#####angle
-         * @syntax angle(v1,v2,type)
+#####pointBelong
+          
+#####angleBetweenVector
+         * @syntax angleBetweenVector(v1,v2,type)
          * @param {Vector} v1
          * @param {Vector} v2
          * @param {String} optionnal(deg|rad) type
@@ -175,11 +177,12 @@
      * @syntax cross(v2)
      * @param {Vector} v2
      * @returns {Point}
-#####angle
+#####angleBetweenVector
      * @syntax angle(v2,type)
      * @param {Vector} v2
      * @param {String} optionnal(deg|rad) type
      * @returns {Float}
+#####pointBelong
 
 ### storage
 #####setObject
