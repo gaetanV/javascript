@@ -15,6 +15,10 @@
     domDiv.appendChild(domP);
     test.dom.appendChild(domDiv);
 
+
+    /*ANIMATE*/
+    animate();
+
     /*CSS*/
     css();
 
@@ -29,7 +33,11 @@
     
     
     dom();
-
+    
+    function animate() {
+        domDiv.delay(200).css("height", "+=200");
+    };
+  
 
     function css() {
         //espace before and after//
