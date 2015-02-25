@@ -70,7 +70,7 @@ HTMLElement.prototype.anim=function(){
                               vm.animate.push(funct,param);
                           }
                           Return subAnim;
-                        }
+                        }()
               }
             };
 //*///
