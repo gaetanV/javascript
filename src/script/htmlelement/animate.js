@@ -5,29 +5,24 @@
     
     var animate=function(){
         this.list=new Array();
-        this.animate=false;
+
     }; 
     animate.prototype.push=function(func,param){
         var anim={
             func:func,
             param:param
         };
-        this.animate=true;
+
         this.list.push(anim);
     };
-    animate.prototype.Anim=function(){
-         console.log(  this.list);
+    
+    
 
-        for(var i=0; i< this.list.length ; i++){
-            console.log(this.list[i].func);
-             //   this.list[i].func( this.list[i].param.join());
-        }
-    };
-        return subAnim
-    }    
     
 HTMLElement.prototype.anim=function(){
-    this.animate.Anim();
+       for(var i=0; i< this.animate.list.length ; i++){
+             this.animate.list[i].func.apply(this, this.animate.list[i].param);
+       }
 };
     
      HTMLElement.prototype.delay=function(time){
@@ -37,42 +32,44 @@ HTMLElement.prototype.anim=function(){
              };
             var cloneAnimate=function(){ };
             // vm.animate.push(this.delay,[time]);
-/*///
-            for(var fn in HTMLElement.prototype){
+           
+            for(var fn in HTMLElement.prototype ){
+                (function(){
+                        var func=vm[fn];
+                        if(typeof func=="function"){
+                              cloneAnimate.prototype[fn]=function(){
+                                    var param=[];
+                                    for(var i=0; i<arguments.length; i++){
+                                        param.push(arguments[i])
 
-              var func=vm[fn];
-         
-              if(typeof func=="function"){
-                    cloneAnimate.prototype[fn]=function(){
-                          var param=[];
-                          for(var i=0; i<arguments.length; i++){
-                              param.push(arguments[i])
-
-                          }
-                          vm.animate.push(func,param);
-                         console.log(cloneAnimate.prototype);
-                          return new cloneAnimate;
-                      };
-              }
+                                    }
+                                    vm.animate.push(func,param);
+                                    return new cloneAnimate;
+                                };
+                        }
+                    })();
             };
-//*///
-//*///
+
+/*///
             for(var fn in HTMLElement.prototype){
               var func=vm[fn];
               if(typeof func=="function"){
                     cloneAnimate.prototype[fn] = function(func){
                           var funct = func;
-                          function subAnim(){
+                         function subAnim(){
                               var param=[];
                               for(var i=0; i<arguments.length; i++){
-                                  param.push(arguments[i])
+                                  param.push(arguments[i]);
                               }
                               vm.animate.push(funct,param);
                           }
-                          Return subAnim;
-                        }
+                          return  func;
+                        }();
+                       
               }
-            };
+               
+            };//*///
+            console.log(cloneAnimate.prototype);
 //*///
 
 
