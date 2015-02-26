@@ -50,27 +50,8 @@ HTMLElement.prototype.anim=function(){
                     })();
             };
 
-/*///
-            for(var fn in HTMLElement.prototype){
-              var func=vm[fn];
-              if(typeof func=="function"){
-                    cloneAnimate.prototype[fn] = function(func){
-                          var funct = func;
-                         function subAnim(){
-                              var param=[];
-                              for(var i=0; i<arguments.length; i++){
-                                  param.push(arguments[i]);
-                              }
-                              vm.animate.push(funct,param);
-                          }
-                          return  func;
-                        }();
-                       
-              }
-               
-            };//*///
             console.log(cloneAnimate.prototype);
-//*///
+
 
 
           return new cloneAnimate;
