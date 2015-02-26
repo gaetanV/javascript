@@ -19,7 +19,7 @@ var vector;
      * @returns {Self} + p1 + p2
      */
     vector.prototype.setPoint = function(p1, p2) {
-        console.log(p2.toString());
+      
         if(p1.toString()==="[object point]"&&p2.toString()==="[object point]"){
             var V = Math.point.vector(p1, p2);
             this.vx = V.vx;

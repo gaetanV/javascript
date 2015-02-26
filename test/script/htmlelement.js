@@ -35,9 +35,12 @@
     dom();
     
     function animate() {
-        domDiv.delay(200).css("  background-color ", " red ").css("height", "+=200");
-        domDiv.anim();
+        domDiv.delay(2000).css("  background-color ", " red ").css("height", "+=200");
 
+        domDiv.animate({height:"+=200"},1000).css("width", "500");
+
+
+        console.log(domDiv.$animate);
     };
   
 
