@@ -55,8 +55,16 @@
                               return true;
                               break;
                           case "animate":
-                               if( this.$animate.keyframe>=anim.keyEnd){
+                              var keyRemaining=anim.keyEnd-this.$animate.keyframe;  
+                              if(keyRemaining<=0){
+                                  
                                  nextIsAnimate.call(this);
+                              }else{
+                                  
+                               for(var i in anim.param[1]){
+                                  var diff=(parseInt(anim.param[1][i])-parseInt(this.style[i]));
+                                  this.css(i,"+="+diff/keyRemaining);
+                               }
                               };
                         
                               return true;
@@ -77,6 +85,11 @@
                                 exe.call(this,anim);
                             };
                       };
+                      
+                      function exeCSS(anim){
+                          
+                      };
+                      
                      
                   };
         
@@ -85,7 +98,7 @@
              var anim= this.$animate.list[idAnim]
              if(anim ){
                 this.$animate.keyframe++;
-                console.log(this.$animate.keyframe);
+              //  console.log(this.$animate.keyframe);
                 exe.call(this,anim);
               }else{
                       this.clearAnimate();
@@ -95,46 +108,14 @@
  
     };
     
-    HTMLElement.prototype.stop = function () {
-         this.$animate.isPlay=false;
-    };
     
    HTMLElement.prototype.clearAnimate = function () {
         clearInterval(this.$animate.interval);
-        this.$animate.isPlay=false;
+        this.$animate.state=0;
         this.$animate.list=new Array();
         this.$animate.keyframe=0;
     };
     
-    HTMLElement.prototype.goTo = function (keyframe) {
-          this.$animate.keyframe=keyframe;
-
-    };
-    
-
- function cloneAnimate(vm) {
-               var clone = function () {  };
-
-               for (var fn in HTMLElement.prototype) {
-                   (function () {
-                       var func = vm[fn];
-                       if (typeof func == "function") {
-                           clone.prototype[fn] = function () {
-                               var param = [];
-                               for (var i = 0; i < arguments.length; i++) {
-                                   param.push(arguments[i])
-
-                               }
-                               vm.pushAnimate(func, param);
-                               return new clone;
-                           };
-                       }
-                   })();
-
-               }
-               ;
-               return new clone;
-     };
 
 
     HTMLElement.prototype.delay = function (time) {
@@ -149,5 +130,36 @@
         this.play();
         return cloneAnimate(this);
     };
+    
+    
+     function cloneAnimate(vm) {
+               var clone = function () {  };
+
+               for (var fn in HTMLElement.prototype) {
+                   (function () {
+                       var func = vm[fn];
+                         
+                       if (typeof func == "function") {
+                             if(fn==="animate" || fn==="delay" ){  
+                                 clone.prototype[fn] =  HTMLElement.prototype[fn] 
+                             }else{
+                      
+                                clone.prototype[fn] = function () {
+                                    var param = [];   
+                                    for (var i = 0; i < arguments.length; i++) {
+                                        param.push(arguments[i])
+                                    }
+                                    vm.pushAnimate(func, param);
+                                   return new clone;
+                               };
+                           }
+                       }
+                   })();
+
+               }
+               ;
+               return new clone;
+     };
+
 
 })();

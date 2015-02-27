@@ -38,7 +38,9 @@
          * @returns {Integer}
          */
         function processInteger(sO, sN, process) {
+ 
             var intO = parseFloat(sO);
+    
             var intN = parseFloat(sN);
             var v;
             switch (process) {
@@ -146,6 +148,8 @@
                     case "string":
                         v = v.trim().toLowerCase();
                         if (toolsCss.cssIsInteger(p)) {
+                            if(!this.style[p])this.style[p]=0+"px";
+
                             var O = toolsCss.parseCss(this.style[p]);
                             var N = toolsCss.parseCss(v);
                             if (N.process != false)

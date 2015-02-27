@@ -20,7 +20,7 @@
     animate();
 
     /*CSS*/
-   // css();
+    css();
 
     /*CSS + PROCESS ( -= | += | *= | /= )*/
     cssProcess();
@@ -35,9 +35,9 @@
     dom();
     
     function animate() {
-        domDiv.delay(2000).css("  background-color ", " red ").css("height", "+=200");
+        domDiv.delay(2000).css("  background-color ", " blue ").css("position", "absolute");
 
-        domDiv.animate({height:"+=200"},1000).css("width", "500");
+        domDiv.animate({left:"200"},1000).css( "height ", "50px").animate({width:"800"},1000).css("background-color ", " red ");
 
 
         console.log(domDiv.$animate);
