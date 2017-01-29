@@ -63,6 +63,7 @@
                                   
                                for(var i in anim.param[1]){
                                   var diff=(parseInt(anim.param[1][i])-parseInt(this.style[i]));
+                                  //HEXA COLOR TO DO  + if not this.style.param
                                   this.css(i,"+="+diff/keyRemaining);
                                }
                               };
