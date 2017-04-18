@@ -1,15 +1,15 @@
 var vector;
 
-(function() {
+(function () {
     'use strict';
 
-    vector = function(vx, vy, vz) {
+    vector = function (vx, vy, vz) {
         this.vx = vx ? vx : 0;
         this.vy = vy ? vy : 0;
         this.vz = vz ? vz : 0;
     };
 
-    vector.prototype.toString = function() {
+    vector.prototype.toString = function () {
         return "[object vector]";
     };
     /**
@@ -18,21 +18,21 @@ var vector;
      * @param {Point} p2 
      * @returns {Self} + p1 + p2
      */
-    vector.prototype.setPoint = function(p1, p2) {
-      
-        if(p1.toString()==="[object point]"&&p2.toString()==="[object point]"){
+    vector.prototype.setPoint = function (p1, p2) {
+
+        if (p1.toString() === "[object point]" && p2.toString() === "[object point]") {
             var V = Math.point.vector(p1, p2);
             this.vx = V.vx;
             this.vy = V.vy;
             this.vz = V.vz;
             this.p1 = p1;
             this.p2 = p2;
-            this.distance=p1.distance(p2);
-            this.angle={
-                  x: Math.atan2(this.vy, this.vx) + Math.PI
+            this.distance = p1.distance(p2);
+            this.angle = {
+                x: Math.atan2(this.vy, this.vx) + Math.PI
             }
-        }else{
-                throw new Error("setPoint() The arguments must be a point");
+        } else {
+            throw new Error("setPoint() The arguments must be a point");
         }
     };
 
@@ -41,7 +41,7 @@ var vector;
      * @param {Vector} v2
      * @returns {Float}
      */
-    vector.prototype.vectorProduct = function(v2) {
+    vector.prototype.vectorProduct = function (v2) {
         return Math.vector.vectorProduct(this, v2);
     };
 
@@ -50,7 +50,7 @@ var vector;
      * @param {Vector} v2
      * @returns {Vector}
      */
-    vector.prototype.scalarProduct = function(v2) {
+    vector.prototype.scalarProduct = function (v2) {
         return Math.vector.scalarProduct(this, v2);
     };
 
@@ -58,7 +58,7 @@ var vector;
      * @syntax normalize( )
      * @returns {Vector}
      */
-    vector.prototype.normalize = function() {
+    vector.prototype.normalize = function () {
         return Math.vector.normalize(this);
     };
 
@@ -67,7 +67,7 @@ var vector;
      * @param {Vector} v2
      * @returns {Point}
      */
-    vector.prototype.cross = function(v2) {
+    vector.prototype.cross = function (v2) {
         return Math.vector.cross(this, v2);
     };
 
@@ -77,42 +77,43 @@ var vector;
      * @param {String} optionnal(deg|rad) type
      * @returns {Float}
      */
-    vector.prototype.angleBetweenVector = function(v2, type) {
+    vector.prototype.angleBetweenVector = function (v2, type) {
         return Math.vector.angleBetweenVector(this, v2, type);
     };
-    
-    vector.prototype.pointBelong = function(p1) {
-            return Math.vector.pointBelong(this,p1);
+
+    vector.prototype.pointBelong = function (p1) {
+        return Math.vector.pointBelong(this, p1);
     };
-    
-    var toolsVecteur = function() {
+
+    var toolsVecteur = function () {
         var toolsVecteur = {
             vectorProduct: vectorProduct,
             scalarProduct: scalarProduct,
             normalize: normalize,
             angleBetweenVector: angleBetweenVector,
             cross: cross,
-            pointBelong:pointBelong
+            pointBelong: pointBelong
         };
         return toolsVecteur;
 
 
-       function pointBelong(v1,p1) {
-                 var v2=new vector();
-                 v2.setPoint(v1.p1,p1);
-                 var vP=v2.vectorProduct(v1);
-                 if(vP.vx==0&&vP.vy==0&&vP.vz==0){
-                     var sP1=v2.scalarProduct(v1);
-                     var sP2=v1.scalarProduct(v1);
-                     if(0<=sP1 && sP1<=sP2 ){
-                          return true;
-                     }else{
-                         return false;
-                     }
-                 }else{
-                     return false;
-                 }
-        };
+        function pointBelong(v1, p1) {
+            var v2 = new vector();
+            v2.setPoint(v1.p1, p1);
+            var vP = v2.vectorProduct(v1);
+            if (vP.vx == 0 && vP.vy == 0 && vP.vz == 0) {
+                var sP1 = v2.scalarProduct(v1);
+                var sP2 = v1.scalarProduct(v1);
+                if (0 <= sP1 && sP1 <= sP2) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+        ;
 
 
         /**
@@ -160,10 +161,10 @@ var vector;
             var vS = v1.toString();
             var vS2 = v2.toString();
             if ((vS === "[object vector]" && vS2 === "[object vector]")) {
-               var x= Math.round(  (v1.vy * (v2.vz) - v2.vy * (v1.vz)  ) * 100) / 100;
-               var y= Math.round(  (v1.vz * v2.vx - (v2.vz) * v1.vx )   * 100) / 100;
-               var z= Math.round(  (v1.vx * v2.vy - v2.vx * v1.vy )  * 100) / 100;
-                var v = new vector(x,y ,z );
+                var x = Math.round((v1.vy * (v2.vz) - v2.vy * (v1.vz)) * 100) / 100;
+                var y = Math.round((v1.vz * v2.vx - (v2.vz) * v1.vx) * 100) / 100;
+                var z = Math.round((v1.vx * v2.vy - v2.vx * v1.vy) * 100) / 100;
+                var v = new vector(x, y, z);
                 return (v);
             } else {
                 throw new Error("vectorProduct() The arguments must be a vector");
@@ -231,6 +232,5 @@ var vector;
 
     };
     Math.vector = toolsVecteur();
-
 
 })();

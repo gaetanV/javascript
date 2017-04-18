@@ -1,0 +1,12 @@
+body{ width:900px; ;  margin:0 auto; font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; font-size:13px;  }
+*{ padding:0; margin:0;}
+#form{padding:20px 0; border-bottom:#000 dotted 1px;}
+h1{ margin-bottom:20px; font-size:25px;}
+.bt{ background:#222; border-radius:3px; color:#fff; text-decoration:none; width:100px; text-align:center; line-height:35px; height:35px; display:block; margin-top:10px;    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset; border-color: #151515 #151515 #000000;  border-width:1px; border-style:solid; }
+.tableTemp{ border-collapse:collapse; background:#000; text-align:left; margin-top:20px; width:100%; font-size:11px;   }
+.tableTemp caption{ padding:10px; font-weight:bold;}
+.tableTemp td{ background:#fff; border-bottom:#ddd solid 1px;  width:20%; padding:2px 0;  }
+.tableTemp th{color:#fff; padding:10px;}
+.dResult{ background:#eee; padding:10px; color:#000; margin:20px 0;   word-wrap: break-word; border:#bbb solid 1px;}
+.cResult{ border:#bbb solid 1px; padding:10px;  color:#000; margin:20px 0; word-wrap: break-word;}
+#valCompresse{ width:880px;; display:block; border:#000 solid 1px;  padding:10px; height:100px;  }

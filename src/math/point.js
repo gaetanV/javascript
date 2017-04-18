@@ -1,29 +1,29 @@
 var point;
 
-(function() {
+(function () {
     'use strict';
-  
-     if(typeof Math.angle!="object"){
-       throw new Error("point need library angle");
+
+    if (typeof Math.angle != "object") {
+        throw new Error("point need library angle");
     }
-    
+
     /*POINT*/
-     /**
+    /**
      * @syntax point()
      */
-    
-    point = function(x, y, z) {
+
+    point = function (x, y, z) {
         this.x = parseFloat(x);
         this.y = parseFloat(y);
         this.z = z | 0;
     };
 
-     /**
+    /**
      * @syntax toString()
      * @returns {String} [object point]
      */
 
-    point.prototype.toString = function() {
+    point.prototype.toString = function () {
         return "[object point]";
     };
 
@@ -35,7 +35,7 @@ var point;
      * @param {String} plan (optional)xy|xz
      * @returns {Self}
      */
-    point.prototype.rotation = function(point2, angle, plan) {
+    point.prototype.rotation = function (point2, angle, plan) {
         var V = Math.point.rotation(this, point2, angle, plan);
         this.x = V.x;
         this.y = V.y;
@@ -48,7 +48,7 @@ var point;
      * @param {Point} p2
      * @returns {Float}
      */
-    point.prototype.distance= function(p2) {
+    point.prototype.distance = function (p2) {
         return Math.point.distance(this, p2);
     };
 
@@ -58,7 +58,7 @@ var point;
      * @returns {vector}
      * vector with points
      */
-    point.prototype.vector = function(p2) {
+    point.prototype.vector = function (p2) {
         var v = Math.point.vector(this, p2);
         v.p1 = this;
         v.p2 = p2;
@@ -73,7 +73,7 @@ var point;
      * @returns {Self }
      * + self z
      */
-    point.prototype.zTriangle = function(p1, p2, p3) {
+    point.prototype.zTriangle = function (p1, p2, p3) {
         var v1 = new vector();
         v1.setPoint(p1, p2);
         var v2 = new vector();
@@ -84,7 +84,7 @@ var point;
         return this;
     }
 
-    var toolsPoint = function() {
+    var toolsPoint = function () {
         var toolsPoint = {
             rotation: rotation,
             distance: distance,
@@ -118,8 +118,7 @@ var point;
                             p1.z = p1.z ? p1.z : 0;
                             p2.z = p2.z ? p2.z : 0;
                             return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2) + Math.pow((p1.z - p2.z), 2));
-                        }
-                        else
+                        } else
                             return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p1.y - p2.y), 2));
                     } else {
                         throw new Error("distance() x & y from second argument must be a number");

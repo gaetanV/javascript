@@ -1,5 +1,5 @@
- (function() {
- var toolsAngle = function() {
+(function () {
+    var toolsAngle = function () {
         var toolsAngle = {
             toRad: toRad,
             toDeg: toDeg
@@ -26,5 +26,5 @@
         ;
     };
     Math.angle = toolsAngle();
-    
- })();
+
+})();

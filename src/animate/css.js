@@ -1,19 +1,19 @@
 
-(function() {
+(function () {
     'use strict';
-    
-        /*********************
+
+    /*********************
      CSS
      *********************/
-   
-    var toolsCss = function() {
+
+    var toolsCss = function () {
         var toolsCss = {
             cssIsInteger: cssIsInteger,
             processInteger: processInteger,
             parseCss: parseCss
         }
         return toolsCss;
-        
+
         /**
          * @syntax cssIsInteger(cssNames,operator)
          * @param {String} cssNames as p
@@ -26,9 +26,10 @@
                     p === "padding-left" || p === "padding-right" || p === "padding-top" || p === "padding-bottom" ||
                     p === "margin-left" || p === "margin-right" || p === "margin-top" || p === "margin-bottom"
                     ) ? true : false;
-        };
-        
-        
+        }
+        ;
+
+
         /**
          * @syntax processInteger(sOldValue,sNewValue,process)
          * @param {String} sOldValue as sO
@@ -38,9 +39,9 @@
          * @returns {Integer}
          */
         function processInteger(sO, sN, process) {
- 
+
             var intO = parseFloat(sO);
-    
+
             var intN = parseFloat(sN);
             var v;
             switch (process) {
@@ -59,7 +60,7 @@
             }
             return v;
         }
-        
+
         /**
          * @syntax processInteger(fullValueCss)
          * @param {String} fullValueCss as str
@@ -69,7 +70,7 @@
          * type ("px" | "%" | "en")
          * value ( full without  process and type);
          */
-         function parseCss(str) {
+        function parseCss(str) {
             var css = {};
             css.full = str;
 
@@ -119,16 +120,16 @@
      * @syntax width()
      * @returns {Integer}
      */
-    HTMLElement.prototype.width = function() {
-        return this.offsetWidth ;
+    HTMLElement.prototype.width = function () {
+        return this.offsetWidth;
     };
 
-     /**
+    /**
      * @syntax height()
      * @returns {Integer}
      */
-    HTMLElement.prototype.height = function() {
-        return this.offsetHeight ;
+    HTMLElement.prototype.height = function () {
+        return this.offsetHeight;
     };
 
     /**
@@ -139,7 +140,7 @@
      *  after operator optional("px")
      * @returns {Self}
      */
-    HTMLElement.prototype.css = function(p, v) {
+    HTMLElement.prototype.css = function (p, v) {
         if (typeof p === "string") {
             p = p.trim().toLowerCase();
             if (typeof (v) === "string") {
@@ -148,7 +149,8 @@
                     case "string":
                         v = v.trim().toLowerCase();
                         if (toolsCss.cssIsInteger(p)) {
-                            if(!this.style[p])this.style[p]=0+"px";
+                            if (!this.style[p])
+                                this.style[p] = 0 + "px";
 
                             var O = toolsCss.parseCss(this.style[p]);
                             var N = toolsCss.parseCss(v);
@@ -175,7 +177,7 @@
      * accept multi string as array with space character
      * @returns {Boolean}
      */
-    HTMLElement.prototype.addClass = function(n) {
+    HTMLElement.prototype.addClass = function (n) {
         if (typeof n === "string") {
             n = n.trim().toLowerCase();
             var $a, $b;
@@ -204,7 +206,7 @@
      * accept multi string as array with space character
      * @returns {Boolean}
      */
-    HTMLElement.prototype.removeClass = function(n) {
+    HTMLElement.prototype.removeClass = function (n) {
         if (typeof n === "string") {
             n = n.trim().toLowerCase();
             var $i, $a, $b;
@@ -222,6 +224,4 @@
             return false;
     };
 
-    
-         
 })();
