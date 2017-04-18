@@ -1,31 +1,32 @@
 ﻿<!DOCTYPE html>
-<html data-ng-app="app" ng-strict-di>
+<html>
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
         <title >Compression</title>
         <script src="../../src/compression/LZW.js"></script>
-        <script src="./content/angular.js"></script>
-        <script src="./content/LZW.js"></script>
+        <script src="./content/vue.min.js"></script>
         <link href="./content/styles.css" rel="stylesheet" />
     </head>
     <body>
         <section>
             <h1>Compression LZW </h1>
-            <div class="controller" ng-controller="Lzm" >
-                <textarea id="valCompresse"   type="texte"  ng-model="val.compress"></textarea>
-                <a class="bt"   ng-click="compress(val.compress)" href="#" >Compresse </a>
-                <br/>
-                <textarea  id="valCompresse"  type="texte"  ng-model="val.uncompress"></textarea>
-                <a class="bt" ng-click="uncompress(val.uncompress)" href="#" >Uncompress </a>
-                <br/>
-                <div> {{result.table}}</div>
-                <br/>
-                <div>size (bit)  {{result.size}}</div>
-                <div> sizeCompress  (bit)  {{result.sizeCompress}}</div>
+            <div id="LZW" >
+                <div>
+                    <textarea class="valCompresse" v-model="form.compress"  type="texte"></textarea>
+                    <a class="bt"   v-on:click="compressAction"  href="#" >Compresse </a>
+                </div>
+                <div>
+                    <textarea  class="valCompresse" v-model="form.uncompress"  type="texte"></textarea>
+                    <a class="bt" v-on:click="uncompressAction"  href="#" >Uncompress </a>
+                </div>
+                <div>
+                    <div>{{result.table}}</div>
+                    <div>size (bit)  {{result.size}}</div>
+                    <div> sizeCompress  (bit)  {{result.sizeCompress}}</div>
+                </div>
             </div>
         </section>
-
+        <script src="./content/LZW.js"></script>     
     </body>
 </html>

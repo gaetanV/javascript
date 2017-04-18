@@ -11,7 +11,7 @@
             cssIsInteger: cssIsInteger,
             processInteger: processInteger,
             parseCss: parseCss
-        }
+        };
         return toolsCss;
 
         /**
@@ -27,9 +27,6 @@
                     p === "margin-left" || p === "margin-right" || p === "margin-top" || p === "margin-bottom"
                     ) ? true : false;
         }
-        ;
-
-
         /**
          * @syntax processInteger(sOldValue,sNewValue,process)
          * @param {String} sOldValue as sO
@@ -60,7 +57,6 @@
             }
             return v;
         }
-
         /**
          * @syntax processInteger(fullValueCss)
          * @param {String} fullValueCss as str
