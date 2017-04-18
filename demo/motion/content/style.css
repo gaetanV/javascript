@@ -1,0 +1,25 @@
+body ,html{
+    height:100%;overflow: hidden; 
+}
+
+body{
+    font-family: 'arial', sans-serif;
+    background:#C1E8FB url(background.svg) center bottom no-repeat;     
+    background-size: 100% auto;
+}
+
+#front{
+    width:100%;
+    height:100%;
+    position: fixed;  
+    z-index: 1; 
+    background: url('front.svg') center bottom no-repeat;    
+    background-size: 100% auto;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+

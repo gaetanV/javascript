@@ -1,0 +1,6 @@
+.animal{     
+    position: fixed; 
+    background: url(animal.svg); 
+    background-size: 500% auto;
+    z-index:50;
+}
