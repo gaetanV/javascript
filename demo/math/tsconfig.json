@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system", 
+        "outFile": "app/package.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "baseUrl": "./../../",
+        "paths": {
+           "vector": ["src/math/vector.js"],
+           "toolsVector": ["src/math/toolsVector.js"],
+           "point": ["src/math/point.js"],
+           "toolsPoint": ["src/math/toolsPoint.js"],
+           "test": ["src/tools/test.js"]
+         }  
+    },
+    "include": [
+        "boot.ts"
+    ]
+}
+
+
+
