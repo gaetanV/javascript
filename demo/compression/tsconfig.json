@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system", 
+        "outFile": "app/package.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "baseUrl": "./../../",
+        "paths": {
+           "LZW": ["src/compression/LZW.js"]
+         }  
+    },
+    "include": [
+       "./../node_modules/systemjs/dist/system-production.js",
+       "./../node_modules/vue/dist/vue.js",
+       "boot.js"
+    ]
+}
+
+
+

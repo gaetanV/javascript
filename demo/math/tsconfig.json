@@ -15,7 +15,8 @@
          }  
     },
     "include": [
-        "boot.ts"
+        "./../node_modules/systemjs/dist/system-production.js",
+        "boot.js"
     ]
 }
 

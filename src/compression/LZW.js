@@ -1,10 +1,6 @@
-var LZW;
-(function () {
-    'use strict';
 
 
-    LZW = function LZW() {
-    };
+    export function LZW() {};
 
     LZW.compress = function (uncompressed) {
         var dictionary = dictionaryASIIByChar();
@@ -82,5 +78,3 @@ var LZW;
         }
         return dictionary;
     }
-
-})();
