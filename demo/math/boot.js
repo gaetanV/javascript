@@ -10,7 +10,7 @@ class mocha {
         this.v0 = new point(0, 0);
         this.v1 =  new point(1, 1);
         this.v2 =  new point(0, 2);
-        this.v3 =  new point(0, 2);XD67U54RGT
+        this.v3 =  new point(0, 2);
         this.v4 = {x: 2};
         this.V0 = new point(0, 0, 0);
         this.V1 =  new point(0, 0, 1);

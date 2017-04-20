@@ -1,34 +1,30 @@
-/*STORAGE*/
-(function() {
-    'use strict';
+var toolsObject = function () {
+    var toolsObject = {
+        parseObject: parseObject
+    };
+    return toolsObject;
 
-    var toolsObject = function() {
-        var toolsObject = {
-            parseObject: parseObject
-        };
-        return toolsObject;
-
-        /**
-         * @syntax parseObject(srt)
-         * @param {String} srt
-         * @returns {Object | Boolean false}
-         */
-        function parseObject(srt) {
-            try {
-                var obj = JSON.parse(srt);
-                if (obj === "" || !obj)
-                    return false;
-            }
-            catch (e) {
+    /**
+     * @syntax parseObject(srt)
+     * @param {String} srt
+     * @returns {Object | Boolean false}
+     */
+    function parseObject(srt) {
+        try {
+            var obj = JSON.parse(srt);
+            if (obj === "" || !obj)
                 return false;
-            }
-            ;
-            return obj;
+        } catch (e) {
+            return false;
         }
+        ;
+        return obj;
+    }
+}();
 
-    }();
 
 
+export class natifStorage {
     /**
      * @syntax setObject(key,obj,type)
      * @param {String} key
@@ -36,7 +32,7 @@
      * @param {String (optional)"{}"|"[]"} type
      * @returns {Boolean}
      */
-    Storage.prototype.setObject = function(key, obj, type) {
+    static setObject(key, obj, type) {
         if (typeof key === "number")
             key = key.toString();
         switch (typeof obj) {
@@ -69,14 +65,14 @@
                     break;
             }
             try {
-                this.setItem(key, JSON.stringify(obj));
+                localStorage.setItem(key, JSON.stringify(obj));
                 return  true;
             } catch (e) {
                 return  false;
             }
         } else
             return false;
-    };
+    }
 
     /**
      * @syntax getObject(key,type)
@@ -85,12 +81,12 @@
      * @returns {Boolean}
      */
 
-    Storage.prototype.getObject = function(key, type) {
+    static getObject(key, type) {
         if (typeof key === "number")
             key = key.toString();
         if (typeof key === "string") {
             var obj;
-            var item = this.getItem(key);
+            var item = localStorage.getItem(key);
             obj = toolsObject.parseObject(item);
 
             if (obj === false) {
@@ -117,7 +113,5 @@
             return obj;
         } else
             return false;
-    };
-
-
-})();
+    }
+}

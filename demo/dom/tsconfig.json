@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system", 
+        "outFile": "app/package.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "baseUrl": "./../../",
+        "paths": {
+           "domAnimate": ["src/dom/domAnimate.js"],
+           "domInsert": ["src/dom/domInsert.js"],
+           "domClass": ["src/dom/domClass.js"],
+           "domCss": ["src/dom/domCss.js"],
+           "natifArray": ["src/natif/natifArray.js"],
+           "natifStorage": ["src/natif/natifStorage.js"],
+           "natifString": ["src/natif/natifString.js"],
+           "test": ["src/tools/test.js"]
+         }  
+    },
+    "include": [
+        "./../node_modules/systemjs/dist/system-production.js",
+        "dom.js","storage.js"
+    ]
+}
+
+
+
