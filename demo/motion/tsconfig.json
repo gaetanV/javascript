@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system", 
+        "outFile": "app/package.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "baseUrl": "./../../",
+        "paths": {
+           "vector": ["src/math/vector.js"],
+           "point": ["src/math/point.js"],
+           "motion": ["src/motion/motion.js"]
+        }  
+    },
+    "include": [
+        "./../node_modules/systemjs/dist/system-production.js",
+        "boot.js"
+    ]
+}
+
+
+

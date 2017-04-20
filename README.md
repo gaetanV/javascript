@@ -1,8 +1,5 @@
 
-
-# 2015 libraries_javascript
-
-(c) Gaetan Vigneron 
+# libraries_javascript
 
 ```
 Free laboratory no source to thank

@@ -1,4 +1,5 @@
 import {LZW} from "LZW";
+
 new Vue({
     el: '#LZW',
     data: {
