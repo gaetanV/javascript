@@ -1,31 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
     <head>
+        <title >Compression</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
-        <title >Compression</title>
-        <script src="package.js"></script>
         <link href="./styles.css" rel="stylesheet" />
-    </head>
-    <body>
-        <section>
-            <h1>Compression LZW </h1>
-            <div id="LZW" >
-                <div>
-                    <textarea class="valCompresse" v-model="form.compress"  type="texte"></textarea>
-                    <a class="bt"   v-on:click="compressAction"  href="#" >Compresse </a>
-                </div>
-                <div>
-                    <textarea  class="valCompresse" v-model="form.uncompress"  type="texte"></textarea>
-                    <a class="bt" v-on:click="uncompressAction"  href="#" >Uncompress </a>
-                </div>
-                <div>
-                    <div>{{result.table}}</div>
-                    <div>size (bit)  {{result.size}}</div>
-                    <div> sizeCompress  (bit)  {{result.sizeCompress}}</div>
-                </div>
-            </div>
-        </section>
+        <script src="package.js"></script>
         <script>System.import('demo/compression/boot');</script>
-    </body>
+    </head>
 </html>

@@ -2,6 +2,12 @@ import {animalCollection} from "./import/animal/animalCollection.js";
 import {score} from "./import/score/score.js";
 import {motion} from "motion";
 
+
+var dom =  document.createElement('section');
+dom.id = "front";
+document.body.appendChild(dom);
+
+
 var aCollection = new animalCollection();
 var aScore = new score();
 var graphMotion = new motion();
