@@ -1,7 +1,15 @@
 {
   "dependencies": {
+    "browser-sync": "^2.18.8",
+    "concurrently": "^3.4.0",
     "systemjs": "^0.20.12",
     "typescript": "^2.2.1",
     "vue": "^2.2.6"
+  },
+  "scripts": {
+    "compression": "concurrently \"tsc -p .\\compression\\ --watch --allowJs\" \"browser-sync start --config .\\compression\\proxy.js \"  ",
+    "dom": "concurrently \"tsc -p .\\dom\\ --watch --allowJs\" \"browser-sync start --config .\\dom\\proxy.js \"  ",
+    "math": "concurrently \"tsc -p .\\math\\ --watch --allowJs\" \"browser-sync start --config .\\math\\proxy.js \"  ",
+    "motion": "concurrently \"tsc -p .\\motion\\ --watch --allowJs\" \"browser-sync start --config .\\motion\\proxy.js \"  "
   }
 }
