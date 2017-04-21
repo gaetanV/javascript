@@ -1,8 +1,5 @@
-
-
-    export function LZW() {};
-
-    LZW.compress = function (uncompressed) {
+export class LZW {
+    static compress(uncompressed) {
         var dictionary = dictionaryASIIByChar();
         var dictSize = 255;
         var pw = "";
@@ -29,9 +26,9 @@
         if (pw !== "")
             compressed.push(dictionary[pw]); // ENCODE THE LAST WORD
         return {result: compressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8};
-    };
+    }
 
-    LZW.uncompress = function (compressed) {
+    static uncompress(compressed) {
         var dictionary = dictionaryASIIByID();
         var dictSize = 255;
         var pw = String.fromCharCode(compressed[0]);
@@ -57,24 +54,26 @@
         }
         ;
         return {result: uncompressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8};
-    };
-
-
-
-    function dictionaryASIIByChar() {
-        var dictionary = new Array;
-        //ASII ENCODING
-        for (var i = 0; i < 255; i += 1) {
-            dictionary[String.fromCharCode(i)] = i;
-        }
-        return dictionary;
     }
 
-    function dictionaryASIIByID() {
-        var dictionary = new Array;
-        //ASII ENCODING
-        for (var i = 0; i < 255; i += 1) {
-            dictionary[i] = String.fromCharCode(i);
-        }
-        return dictionary;
+}
+
+
+
+function dictionaryASIIByChar() {
+    var dictionary = new Array;
+    //ASII ENCODING
+    for (var i = 0; i < 255; i += 1) {
+        dictionary[String.fromCharCode(i)] = i;
     }
+    return dictionary;
+}
+
+function dictionaryASIIByID() {
+    var dictionary = new Array;
+    //ASII ENCODING
+    for (var i = 0; i < 255; i += 1) {
+        dictionary[i] = String.fromCharCode(i);
+    }
+    return dictionary;
+}

@@ -72,7 +72,6 @@ export class toolsPoint{
                      angle = toolsAngle.toRad(angle);
                      break;
              }
-
          } else {
              angle = toolsAngle.toRad(angle);
          }

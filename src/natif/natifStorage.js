@@ -1,15 +1,10 @@
-var toolsObject = function () {
-    var toolsObject = {
-        parseObject: parseObject
-    };
-    return toolsObject;
-
+class toolsObject {
     /**
      * @syntax parseObject(srt)
      * @param {String} srt
      * @returns {Object | Boolean false}
      */
-    function parseObject(srt) {
+    static parseObject(srt) {
         try {
             var obj = JSON.parse(srt);
             if (obj === "" || !obj)
@@ -20,9 +15,7 @@ var toolsObject = function () {
         ;
         return obj;
     }
-}();
-
-
+};
 
 export class natifStorage {
     /**

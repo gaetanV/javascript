@@ -7387,8 +7387,6 @@
 System.register("src/compression/LZW", [], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    function LZW() { }
-    exports_1("LZW", LZW);
     function dictionaryASIIByChar() {
         var dictionary = new Array;
         for (var i = 0; i < 255; i += 1) {
@@ -7403,62 +7401,68 @@ System.register("src/compression/LZW", [], function (exports_1, context_1) {
         }
         return dictionary;
     }
+    var LZW;
     return {
         setters: [],
         execute: function () {
-            ;
-            LZW.compress = function (uncompressed) {
-                var dictionary = dictionaryASIIByChar();
-                var dictSize = 255;
-                var pw = "";
-                var table = new Array;
-                var compressed = new Array;
-                for (var i = 0; i < uncompressed.length; i++) {
-                    var ligne = {};
-                    ligne.pw = pw;
-                    ligne.c = uncompressed.charAt(i);
-                    ligne.cw = ligne.pw + ligne.c;
-                    if (dictionary[ligne.cw]) {
-                        pw = ligne.cw;
-                    }
-                    else {
-                        dictionary[ligne.cw] = ++dictSize;
-                        ligne.dictionary = dictionary[ligne.cw];
-                        ligne.sortie = dictionary[pw];
-                        pw = ligne.c;
-                        compressed.push(ligne.sortie);
-                    }
-                    table.push(ligne);
+            LZW = (function () {
+                function LZW() {
                 }
-                if (pw !== "")
-                    compressed.push(dictionary[pw]);
-                return { result: compressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8 };
-            };
-            LZW.uncompress = function (compressed) {
-                var dictionary = dictionaryASIIByID();
-                var dictSize = 255;
-                var pw = String.fromCharCode(compressed[0]);
-                var table = new Array;
-                var uncompressed = "";
-                for (var i = 0; i < compressed.length; i++) {
-                    var ligne = {};
-                    ligne.k = compressed[i];
-                    if (dictionary[ligne.k]) {
-                        ligne.sortie = dictionary[ligne.k];
+                LZW.compress = function (uncompressed) {
+                    var dictionary = dictionaryASIIByChar();
+                    var dictSize = 255;
+                    var pw = "";
+                    var table = new Array;
+                    var compressed = new Array;
+                    for (var i = 0; i < uncompressed.length; i++) {
+                        var ligne = {};
+                        ligne.pw = pw;
+                        ligne.c = uncompressed.charAt(i);
+                        ligne.cw = ligne.pw + ligne.c;
+                        if (dictionary[ligne.cw]) {
+                            pw = ligne.cw;
+                        }
+                        else {
+                            dictionary[ligne.cw] = ++dictSize;
+                            ligne.dictionary = dictionary[ligne.cw];
+                            ligne.sortie = dictionary[pw];
+                            pw = ligne.c;
+                            compressed.push(ligne.sortie);
+                        }
+                        table.push(ligne);
                     }
-                    else {
-                        ligne.sortie = pw + pw.charAt(0);
+                    if (pw !== "")
+                        compressed.push(dictionary[pw]);
+                    return { result: compressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8 };
+                };
+                LZW.uncompress = function (compressed) {
+                    var dictionary = dictionaryASIIByID();
+                    var dictSize = 255;
+                    var pw = String.fromCharCode(compressed[0]);
+                    var table = new Array;
+                    var uncompressed = "";
+                    for (var i = 0; i < compressed.length; i++) {
+                        var ligne = {};
+                        ligne.k = compressed[i];
+                        if (dictionary[ligne.k]) {
+                            ligne.sortie = dictionary[ligne.k];
+                        }
+                        else {
+                            ligne.sortie = pw + pw.charAt(0);
+                        }
+                        dictionary[dictSize] = pw + ligne.sortie.charAt(0);
+                        ligne.dictionary = dictionary[dictSize];
+                        table.push(ligne);
+                        dictSize++;
+                        pw = ligne.sortie;
+                        uncompressed += ligne.sortie;
                     }
-                    dictionary[dictSize] = pw + ligne.sortie.charAt(0);
-                    ligne.dictionary = dictionary[dictSize];
-                    table.push(ligne);
-                    dictSize++;
-                    pw = ligne.sortie;
-                    uncompressed += ligne.sortie;
-                }
-                ;
-                return { result: uncompressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8 };
-            };
+                    ;
+                    return { result: uncompressed, table: table, sizeCompress: compressed.length * 8, size: uncompressed.length * 8 };
+                };
+                return LZW;
+            }());
+            exports_1("LZW", LZW);
         }
     };
 });

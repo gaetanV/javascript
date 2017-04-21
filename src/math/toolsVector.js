@@ -12,7 +12,7 @@ export class toolsVector{
 
         var vP = v2.vectorProduct(v1);
     
-        if (vP.vx == 0 && vP.vy == 0 && vP.vz == 0) {
+        if (vP.vx === 0 && vP.vy === 0 && vP.vz === 0) {
             var sP1 = v2.scalarProduct(v1);
             var sP2 = v1.scalarProduct(v1);
             if (0 <= sP1 && sP1 <= sP2) {

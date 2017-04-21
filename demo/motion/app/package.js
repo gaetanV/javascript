@@ -1,3 +1,13 @@
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 !function () {
     "use strict";
     function e(e) { return H ? Symbol() : "@@" + e; }
@@ -380,7 +390,7 @@ System.register("src/math/toolsVector", ["src/math/vector", "src/math/point", "s
                     var v2 = new vector_1.vector();
                     v2.setPoint(v1.p1, p1);
                     var vP = v2.vectorProduct(v1);
-                    if (vP.vx == 0 && vP.vy == 0 && vP.vz == 0) {
+                    if (vP.vx === 0 && vP.vy === 0 && vP.vz === 0) {
                         var sP1 = v2.scalarProduct(v1);
                         var sP2 = v1.scalarProduct(v1);
                         if (0 <= sP1 && sP1 <= sP2) {
@@ -476,13 +486,7 @@ System.register("src/math/toolsVector", ["src/math/vector", "src/math/point", "s
 System.register("src/math/vector", ["src/math/toolsPoint", "src/math/toolsVector"], function (exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    function vector(vx, vy, vz) {
-        this.vx = vx ? vx : 0;
-        this.vy = vy ? vy : 0;
-        this.vz = vz ? vz : 0;
-    }
-    exports_4("vector", vector);
-    var toolsPoint_1, toolsVector_1;
+    var toolsPoint_1, toolsVector_1, vector;
     return {
         setters: [
             function (toolsPoint_1_1) {
@@ -493,44 +497,53 @@ System.register("src/math/vector", ["src/math/toolsPoint", "src/math/toolsVector
             }
         ],
         execute: function () {
-            vector.prototype.toString = function () {
-                return "[object vector]";
-            };
-            vector.prototype.setPoint = function (p1, p2) {
-                if (p1.toString() === "[object point]" && p2.toString() === "[object point]") {
-                    var V = toolsPoint_1.toolsPoint.vectorBetween(p1, p2);
-                    this.vx = V.vx;
-                    this.vy = V.vy;
-                    this.vz = V.vz;
-                    this.p1 = p1;
-                    this.p2 = p2;
-                    this.distance = p1.distance(p2);
-                    this.angle = {
-                        x: Math.atan2(this.vy, this.vx) + Math.PI
-                    };
+            vector = (function () {
+                function vector(vx, vy, vz) {
+                    this.vx = vx ? vx : 0;
+                    this.vy = vy ? vy : 0;
+                    this.vz = vz ? vz : 0;
                 }
-                else {
-                    throw new Error("setPoint() The arguments must be a point");
-                }
-            };
-            vector.prototype.vectorProduct = function (v2) {
-                return toolsVector_1.toolsVector.vectorProduct(this, v2);
-            };
-            vector.prototype.scalarProduct = function (v2) {
-                return toolsVector_1.toolsVector.scalarProduct(this, v2);
-            };
-            vector.prototype.normalize = function () {
-                return toolsVector_1.toolsVector.normalize(this);
-            };
-            vector.prototype.cross = function (v2) {
-                return toolsVector_1.toolsVector.cross(this, v2);
-            };
-            vector.prototype.angleBetweenVector = function (v2, type) {
-                return toolsVector_1.toolsVector.angleBetweenVector(this, v2, type);
-            };
-            vector.prototype.pointBelong = function (p1) {
-                return toolsVector_1.toolsVector.pointBelong(this, p1);
-            };
+                vector.prototype.toString = function () {
+                    return "[object vector]";
+                };
+                vector.prototype.setPoint = function (p1, p2) {
+                    if (p1.toString() === "[object point]" && p2.toString() === "[object point]") {
+                        var V = toolsPoint_1.toolsPoint.vectorBetween(p1, p2);
+                        this.vx = V.vx;
+                        this.vy = V.vy;
+                        this.vz = V.vz;
+                        this.p1 = p1;
+                        this.p2 = p2;
+                        this.distance = p1.distance(p2);
+                        this.angle = {
+                            x: Math.atan2(this.vy, this.vx) + Math.PI
+                        };
+                    }
+                    else {
+                        throw new Error("setPoint() The arguments must be a point");
+                    }
+                };
+                vector.prototype.vectorProduct = function (v2) {
+                    return toolsVector_1.toolsVector.vectorProduct(this, v2);
+                };
+                vector.prototype.scalarProduct = function (v2) {
+                    return toolsVector_1.toolsVector.scalarProduct(this, v2);
+                };
+                vector.prototype.normalize = function () {
+                    return toolsVector_1.toolsVector.normalize(this);
+                };
+                vector.prototype.cross = function (v2) {
+                    return toolsVector_1.toolsVector.cross(this, v2);
+                };
+                vector.prototype.angleBetweenVector = function (v2, type) {
+                    return toolsVector_1.toolsVector.angleBetweenVector(this, v2, type);
+                };
+                vector.prototype.pointBelong = function (p1) {
+                    return toolsVector_1.toolsVector.pointBelong(this, p1);
+                };
+                return vector;
+            }());
+            exports_4("vector", vector);
         }
     };
 });
@@ -640,13 +653,7 @@ System.register("src/math/toolsPoint", ["src/math/point", "src/math/vector", "sr
 System.register("src/math/point", ["src/math/toolsPoint", "src/math/vector"], function (exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
-    function point(x, y, z) {
-        this.x = parseFloat(x);
-        this.y = parseFloat(y);
-        this.z = z | 0;
-    }
-    exports_6("point", point);
-    var toolsPoint_2, vector_3;
+    var toolsPoint_2, vector_3, point;
     return {
         setters: [
             function (toolsPoint_2_1) {
@@ -657,53 +664,49 @@ System.register("src/math/point", ["src/math/toolsPoint", "src/math/vector"], fu
             }
         ],
         execute: function () {
-            ;
-            point.prototype.toString = function () {
-                return "[object point]";
-            };
-            point.prototype.rotation = function (point2, angle, plan) {
-                var V = toolsPoint_2.toolsPoint.rotation(this, point2, angle, plan);
-                this.x = V.x;
-                this.y = V.y;
-                this.z = V.z;
-            };
-            point.prototype.distance = function (p2) {
-                return toolsPoint_2.toolsPoint.distance(this, p2);
-            };
-            point.prototype.vector = function (p2) {
-                var v = toolsPoint_2.toolsPoint.vector(this, p2);
-                v.p1 = this;
-                v.p2 = p2;
-                return v;
-            };
-            point.prototype.zTriangle = function (p1, p2, p3) {
-                var v1 = new vector_3.vector();
-                v1.setPoint(p1, p2);
-                var v2 = new vector_3.vector();
-                v2.setPoint(p1, p3);
-                var N = v1.vectorProduct(v2);
-                this.z = -(N.vx * (this.x - p1.x) + N.vy * (this.y - p1.y)) / N.vz + p1.z;
-                return this;
-            };
+            point = (function () {
+                function point(x, y, z) {
+                    this.x = parseFloat(x);
+                    this.y = parseFloat(y);
+                    this.z = z | 0;
+                }
+                point.prototype.toString = function () {
+                    return "[object point]";
+                };
+                point.prototype.rotation = function (point2, angle, plan) {
+                    var V = toolsPoint_2.toolsPoint.rotation(this, point2, angle, plan);
+                    this.x = V.x;
+                    this.y = V.y;
+                    this.z = V.z;
+                };
+                point.prototype.distance = function (p2) {
+                    return toolsPoint_2.toolsPoint.distance(this, p2);
+                };
+                point.prototype.vector = function (p2) {
+                    var v = toolsPoint_2.toolsPoint.vector(this, p2);
+                    v.p1 = this;
+                    v.p2 = p2;
+                    return v;
+                };
+                point.prototype.zTriangle = function (p1, p2, p3) {
+                    var v1 = new vector_3.vector();
+                    v1.setPoint(p1, p2);
+                    var v2 = new vector_3.vector();
+                    v2.setPoint(p1, p3);
+                    var N = v1.vectorProduct(v2);
+                    this.z = -(N.vx * (this.x - p1.x) + N.vy * (this.y - p1.y)) / N.vz + p1.z;
+                    return this;
+                };
+                return point;
+            }());
+            exports_6("point", point);
         }
     };
 });
 System.register("demo/motion/import/animal/animal", ["src/math/point", "src/math/vector"], function (exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
-    function animal() {
-        this.class = "animal";
-        this.name = "undefined";
-        this.points = new Array;
-        this.vitesse = {
-            move: 12,
-            jump: 15,
-        };
-        this.spriteID = 0;
-        this.dom;
-    }
-    exports_7("animal", animal);
-    var point_3, vector_4;
+    var point_3, vector_4, animal;
     return {
         setters: [
             function (point_3_1) {
@@ -714,99 +717,98 @@ System.register("demo/motion/import/animal/animal", ["src/math/point", "src/math
             }
         ],
         execute: function () {
-            animal.prototype.setWidth = function (width) {
-                if (this.dom) {
-                    this.dom.style.width = width + "px";
-                    this.dom.style.height = width * 1.2 + "px";
-                    var bgX = this.spriteID * width;
-                    var bgY = this.direction === 1 ? (width * 1.2) : 0;
-                    this.dom.style.backgroundPosition = "-" + bgX + "px " + bgY + "px";
-                    return true;
+            animal = (function () {
+                function animal() {
+                    this.class = "animal";
+                    this.name = "undefined";
+                    this.points = new Array;
+                    this.vitesse = {
+                        move: 12,
+                        jump: 15,
+                    };
+                    this.spriteID = 0;
+                    this.dom;
                 }
-                else
-                    return false;
-            };
-            animal.prototype.appendTo = function (dom) {
-                this.remove();
-                var d = document.createElement(this.name);
-                d.className = this.class;
-                this.dom = d;
-                this.setWidth(150);
-                dom.appendChild(this.dom);
-            };
-            animal.prototype.getPosition = function () {
-                var x1 = this.dom.style.left ? parseInt(this.dom.style.left) : 0;
-                var y1 = this.dom.style.bottom ? parseInt(this.dom.style.bottom) : 0;
-                return new point_3.point(x1, y1);
-            };
-            animal.prototype.setPosition = function (p1) {
-                this.dom.style.left = p1.x + "px";
-                this.dom.style.bottom = p1.y + "px";
-            };
-            animal.prototype.jump = function (p2, height) {
-                var p1 = this.getPosition();
-                p1.y += height;
-                this.moveTo(p1, this.vitesse.jump, callback);
-                var self = this;
-                function callback() {
-                    self.dom.style.zIndex = 0;
-                    p2.x = parseInt(self.dom.style.left);
-                    self.moveTo(p2, self.vitesse.jump * 2);
-                }
-            };
-            animal.prototype.moveTo = function (p2, vitesse, callback) {
-                if (typeof vitesse === "undefined")
-                    vitesse = this.vitesse.move;
-                var v = new vector_4.vector();
-                var p1 = this.getPosition();
-                var _p1 = this.getPosition();
-                v.setPoint(p1, p2);
-                var self = this;
-                clearInterval(this.animate);
-                this.animate = setInterval(function () {
-                    move.call(self);
-                }, 1000 / 29);
-                function move() {
-                    _p1.x -= Math.cos(v.angle.x) * vitesse;
-                    _p1.y -= Math.sin(v.angle.x) * vitesse;
-                    if (!v.pointBelong(_p1)) {
-                        this.setPosition(p2);
-                        clearInterval(this.animate);
-                        if (typeof callback === "function") {
-                            callback();
-                        }
+                animal.prototype.remove = function () {
+                    clearInterval(this.animate);
+                    if (this.dom)
+                        this.dom.remove();
+                };
+                animal.prototype.setWidth = function (width) {
+                    if (this.dom) {
+                        this.dom.style.width = width + "px";
+                        this.dom.style.height = width * 1.2 + "px";
+                        var bgX = this.spriteID * width;
+                        var bgY = this.direction === 1 ? (width * 1.2) : 0;
+                        this.dom.style.backgroundPosition = "-" + bgX + "px " + bgY + "px";
+                        return true;
                     }
-                    this.setPosition(_p1);
-                }
-            };
-            animal.prototype.remove = function () {
-                clearInterval(this.animate);
-                if (this.dom)
-                    this.dom.remove();
-            };
+                    else
+                        return false;
+                };
+                animal.prototype.appendTo = function (dom) {
+                    this.remove();
+                    var d = document.createElement(this.name);
+                    d.className = this.class;
+                    this.dom = d;
+                    this.setWidth(150);
+                    dom.appendChild(this.dom);
+                };
+                animal.prototype.getPosition = function () {
+                    var x1 = this.dom.style.left ? parseInt(this.dom.style.left) : 0;
+                    var y1 = this.dom.style.bottom ? parseInt(this.dom.style.bottom) : 0;
+                    return new point_3.point(x1, y1);
+                };
+                animal.prototype.setPosition = function (p1) {
+                    this.dom.style.left = p1.x + "px";
+                    this.dom.style.bottom = p1.y + "px";
+                };
+                animal.prototype.jump = function (p2, height) {
+                    var p1 = this.getPosition();
+                    p1.y += height;
+                    this.moveTo(p1, this.vitesse.jump, callback);
+                    var self = this;
+                    function callback() {
+                        self.dom.style.zIndex = 0;
+                        p2.x = parseInt(self.dom.style.left);
+                        self.moveTo(p2, self.vitesse.jump * 2);
+                    }
+                };
+                animal.prototype.moveTo = function (p2, vitesse, callback) {
+                    if (typeof vitesse === "undefined")
+                        vitesse = this.vitesse.move;
+                    var v = new vector_4.vector();
+                    var p1 = this.getPosition();
+                    var _p1 = this.getPosition();
+                    v.setPoint(p1, p2);
+                    var self = this;
+                    clearInterval(this.animate);
+                    this.animate = setInterval(function () {
+                        move.call(self);
+                    }, 1000 / 29);
+                    function move() {
+                        _p1.x -= Math.cos(v.angle.x) * vitesse;
+                        _p1.y -= Math.sin(v.angle.x) * vitesse;
+                        if (!v.pointBelong(_p1)) {
+                            this.setPosition(p2);
+                            clearInterval(this.animate);
+                            if (typeof callback === "function") {
+                                callback();
+                            }
+                        }
+                        this.setPosition(_p1);
+                    }
+                };
+                return animal;
+            }());
+            exports_7("animal", animal);
         }
     };
 });
 System.register("demo/motion/import/animal/collection/elephant", ["demo/motion/import/animal/animal"], function (exports_8, context_8) {
     "use strict";
     var __moduleName = context_8 && context_8.id;
-    function elephant(direction) {
-        animal_1.animal.call(this);
-        this.direction = direction;
-        this.spriteID = 4;
-        this.name = "elephant";
-        switch (direction) {
-            default:
-            case 1:
-                this.points = [[1, 12], [1, 4], [2, 2], [4, 1], [6, 2], [7, 4], [6, 6], [4, 7], [2, 6], [1, 4]];
-                break;
-            case -1:
-                this.points = [[7, 12], [7, 4], [6, 2], [4, 1], [2, 2], [1, 4], [2, 6], [4, 7], [6, 6], [7, 4]];
-                break;
-        }
-    }
-    exports_8("elephant", elephant);
-    var animal_1;
+    var animal_1, elephant;
     return {
         setters: [
             function (animal_1_1) {
@@ -814,30 +816,34 @@ System.register("demo/motion/import/animal/collection/elephant", ["demo/motion/i
             }
         ],
         execute: function () {
-            elephant.prototype = Object.create(animal_1.animal.prototype);
+            elephant = (function (_super) {
+                __extends(elephant, _super);
+                function elephant(direction) {
+                    var _this = _super.call(this) || this;
+                    _this.direction = direction;
+                    _this.spriteID = 4;
+                    _this.name = "elephant";
+                    switch (direction) {
+                        default:
+                        case 1:
+                            _this.points = [[1, 12], [1, 4], [2, 2], [4, 1], [6, 2], [7, 4], [6, 6], [4, 7], [2, 6], [1, 4]];
+                            break;
+                        case -1:
+                            _this.points = [[7, 12], [7, 4], [6, 2], [4, 1], [2, 2], [1, 4], [2, 6], [4, 7], [6, 6], [7, 4]];
+                            break;
+                    }
+                    return _this;
+                }
+                return elephant;
+            }(animal_1.animal));
+            exports_8("elephant", elephant);
         }
     };
 });
 System.register("demo/motion/import/animal/collection/giraffe", ["demo/motion/import/animal/animal"], function (exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
-    function giraffe(direction) {
-        animal_2.animal.call(this);
-        this.direction = direction;
-        this.spriteID = 1;
-        this.name = "giraffe";
-        switch (direction) {
-            default:
-            case 1:
-                this.points = [[7, 1], [7, 12], [6, 10], [4, 9], [2, 10], [1, 12]];
-                break;
-            case -1:
-                this.points = [[1, 1], [1, 12], [2, 10], [4, 9], [6, 10], [7, 12]];
-                break;
-        }
-    }
-    exports_9("giraffe", giraffe);
-    var animal_2;
+    var animal_2, giraffe;
     return {
         setters: [
             function (animal_2_1) {
@@ -845,30 +851,34 @@ System.register("demo/motion/import/animal/collection/giraffe", ["demo/motion/im
             }
         ],
         execute: function () {
-            giraffe.prototype = Object.create(animal_2.animal.prototype);
+            giraffe = (function (_super) {
+                __extends(giraffe, _super);
+                function giraffe(direction) {
+                    var _this = _super.call(this) || this;
+                    _this.direction = direction;
+                    _this.spriteID = 1;
+                    _this.name = "giraffe";
+                    switch (direction) {
+                        default:
+                        case 1:
+                            _this.points = [[7, 1], [7, 12], [6, 10], [4, 9], [2, 10], [1, 12]];
+                            break;
+                        case -1:
+                            _this.points = [[1, 1], [1, 12], [2, 10], [4, 9], [6, 10], [7, 12]];
+                            break;
+                    }
+                    return _this;
+                }
+                return giraffe;
+            }(animal_2.animal));
+            exports_9("giraffe", giraffe);
         }
     };
 });
 System.register("demo/motion/import/animal/collection/lion", ["demo/motion/import/animal/animal"], function (exports_10, context_10) {
     "use strict";
     var __moduleName = context_10 && context_10.id;
-    function lion(direction) {
-        animal_3.animal.call(this);
-        this.direction = direction;
-        this.spriteID = 0;
-        this.name = "lion";
-        switch (direction) {
-            default:
-            case 1:
-                this.points = [[4, 4], [6, 5], [7, 7], [6, 9], [4, 10], [2, 9], [1, 7], [2, 5], [4, 4]];
-                break;
-            case -1:
-                this.points = [[4, 4], [2, 5], [1, 7], [2, 9], [4, 10], [6, 9], [7, 7], [6, 5], [4, 4]];
-                break;
-        }
-    }
-    exports_10("lion", lion);
-    var animal_3;
+    var animal_3, lion;
     return {
         setters: [
             function (animal_3_1) {
@@ -876,31 +886,34 @@ System.register("demo/motion/import/animal/collection/lion", ["demo/motion/impor
             }
         ],
         execute: function () {
-            ;
-            lion.prototype = Object.create(animal_3.animal.prototype);
+            lion = (function (_super) {
+                __extends(lion, _super);
+                function lion(direction) {
+                    var _this = _super.call(this) || this;
+                    _this.direction = direction;
+                    _this.spriteID = 0;
+                    _this.name = "lion";
+                    switch (direction) {
+                        default:
+                        case 1:
+                            _this.points = [[4, 4], [6, 5], [7, 7], [6, 9], [4, 10], [2, 9], [1, 7], [2, 5], [4, 4]];
+                            break;
+                        case -1:
+                            _this.points = [[4, 4], [2, 5], [1, 7], [2, 9], [4, 10], [6, 9], [7, 7], [6, 5], [4, 4]];
+                            break;
+                    }
+                    return _this;
+                }
+                return lion;
+            }(animal_3.animal));
+            exports_10("lion", lion);
         }
     };
 });
 System.register("demo/motion/import/animal/collection/monkey", ["demo/motion/import/animal/animal"], function (exports_11, context_11) {
     "use strict";
     var __moduleName = context_11 && context_11.id;
-    function monkey(direction) {
-        animal_4.animal.call(this);
-        this.direction = direction;
-        this.spriteID = 2;
-        this.name = "monkey";
-        switch (direction) {
-            default:
-            case 1:
-                this.points = [[1, 12], [2, 8], [3, 3], [5, 3], [6, 8], [7, 12]];
-                break;
-            case -1:
-                this.points = [[7, 12], [6, 8], [5, 3], [3, 3], [2, 8], [1, 12]];
-                break;
-        }
-    }
-    exports_11("monkey", monkey);
-    var animal_4;
+    var animal_4, monkey;
     return {
         setters: [
             function (animal_4_1) {
@@ -908,30 +921,34 @@ System.register("demo/motion/import/animal/collection/monkey", ["demo/motion/imp
             }
         ],
         execute: function () {
-            monkey.prototype = Object.create(animal_4.animal.prototype);
+            monkey = (function (_super) {
+                __extends(monkey, _super);
+                function monkey(direction) {
+                    var _this = _super.call(this) || this;
+                    _this.direction = direction;
+                    _this.spriteID = 2;
+                    _this.name = "monkey";
+                    switch (direction) {
+                        default:
+                        case 1:
+                            _this.points = [[1, 12], [2, 8], [3, 3], [5, 3], [6, 8], [7, 12]];
+                            break;
+                        case -1:
+                            _this.points = [[7, 12], [6, 8], [5, 3], [3, 3], [2, 8], [1, 12]];
+                            break;
+                    }
+                    return _this;
+                }
+                return monkey;
+            }(animal_4.animal));
+            exports_11("monkey", monkey);
         }
     };
 });
 System.register("demo/motion/import/animal/collection/snake", ["demo/motion/import/animal/animal"], function (exports_12, context_12) {
     "use strict";
     var __moduleName = context_12 && context_12.id;
-    function snake(direction) {
-        animal_5.animal.call(this);
-        this.direction = direction;
-        this.spriteID = 3;
-        this.name = "snake";
-        switch (direction) {
-            default:
-            case 1:
-                this.points = [[7, 4], [6, 2], [4, 1], [2, 2], [1, 4], [2, 6], [4, 7], [6, 8], [7, 10], [6, 12], [4, 13], [2, 12], [1, 10]];
-                break;
-            case -1:
-                this.points = [[1, 4], [2, 2], [4, 1], [6, 2], [7, 4], [6, 6], [4, 7], [2, 8], [1, 10], [2, 12], [4, 13], [6, 12], [7, 10]];
-                break;
-        }
-    }
-    exports_12("snake", snake);
-    var animal_5;
+    var animal_5, snake;
     return {
         setters: [
             function (animal_5_1) {
@@ -939,31 +956,34 @@ System.register("demo/motion/import/animal/collection/snake", ["demo/motion/impo
             }
         ],
         execute: function () {
-            snake.prototype = Object.create(animal_5.animal.prototype);
+            snake = (function (_super) {
+                __extends(snake, _super);
+                function snake(direction) {
+                    var _this = _super.call(this) || this;
+                    _this.direction = direction;
+                    _this.spriteID = 3;
+                    _this.name = "snake";
+                    switch (direction) {
+                        default:
+                        case 1:
+                            _this.points = [[7, 4], [6, 2], [4, 1], [2, 2], [1, 4], [2, 6], [4, 7], [6, 8], [7, 10], [6, 12], [4, 13], [2, 12], [1, 10]];
+                            break;
+                        case -1:
+                            _this.points = [[1, 4], [2, 2], [4, 1], [6, 2], [7, 4], [6, 6], [4, 7], [2, 8], [1, 10], [2, 12], [4, 13], [6, 12], [7, 10]];
+                            break;
+                    }
+                    return _this;
+                }
+                return snake;
+            }(animal_5.animal));
+            exports_12("snake", snake);
         }
     };
 });
 System.register("demo/motion/import/animal/animalCollection", ["demo/motion/import/animal/collection/elephant", "demo/motion/import/animal/collection/giraffe", "demo/motion/import/animal/collection/lion", "demo/motion/import/animal/collection/monkey", "demo/motion/import/animal/collection/snake", "src/math/point"], function (exports_13, context_13) {
     "use strict";
     var __moduleName = context_13 && context_13.id;
-    function animalCollection() {
-        this.dom = document.createElement('section');
-        this.dom.id = "animalCollection";
-        document.body.appendChild(this.dom);
-        this.list = new Array;
-        this.animalWidth = 250;
-        this.position = [[750, -600], [750, 85], [1450, 30], [2300, 0]];
-        this.jump = 250;
-        this.maxAnimal = this.position.length;
-        for (var i = 0; i < this.maxAnimal; i++) {
-            this.addAnimal();
-        }
-        ;
-        this.ratio = 1;
-        var ratio;
-    }
-    exports_13("animalCollection", animalCollection);
-    var elephant_1, giraffe_1, lion_1, monkey_1, snake_1, point_4;
+    var elephant_1, giraffe_1, lion_1, monkey_1, snake_1, point_4, animalCollection;
     return {
         setters: [
             function (elephant_1_1) {
@@ -986,122 +1006,119 @@ System.register("demo/motion/import/animal/animalCollection", ["demo/motion/impo
             }
         ],
         execute: function () {
-            animalCollection.prototype.setRatio = function (newValue) {
-                this.ratio = newValue;
-                for (var i = 0; i < this.list.length; i++) {
-                    var animal = this.list[i];
-                    animal.setWidth(this.animalWidth * newValue);
-                    var p = new point_4.point(this.position[i][0], this.position[i][1]);
-                    p.x = p.x * this.ratio;
-                    p.y = p.y * this.ratio;
-                    clearInterval(animal.animate);
-                    animal.setPosition(p);
-                }
-                ;
-            };
-            animalCollection.prototype.move = function () {
-                for (var i = 0; i < this.list.length - 1; i++) {
-                    var animal = this.list[i];
-                    var pTarget = new point_4.point(this.position[i][0] * this.ratio, this.position[i][1] * this.ratio);
-                    if (i === 0) {
-                        animal.jump(pTarget, this.jump * this.ratio);
-                    }
-                    else {
-                        animal.moveTo(pTarget);
+            animalCollection = (function () {
+                function animalCollection() {
+                    this.dom = document.createElement('section');
+                    this.dom.id = "animalCollection";
+                    document.body.appendChild(this.dom);
+                    this.list = new Array;
+                    this.animalWidth = 250;
+                    this.position = [[750, -600], [750, 85], [1450, 30], [2300, 0]];
+                    this.jump = 250;
+                    this.maxAnimal = this.position.length;
+                    for (var i = 0; i < this.maxAnimal; i++) {
+                        this.addAnimal();
                     }
                     ;
+                    this.ratio = 1;
+                    var ratio;
                 }
-            };
-            animalCollection.prototype.addAnimal = function () {
-                var animal;
-                var direction = Math.floor(Math.random() * 2) == 1 ? 1 : -1;
-                switch (Math.floor(Math.random() * 5)) {
-                    case 0:
-                        animal = new snake_1.snake(direction);
-                        break;
-                    case 1:
-                        animal = new monkey_1.monkey(direction);
-                        break;
-                    case 2:
-                        animal = new elephant_1.elephant(direction);
-                        break;
-                    case 3:
-                        animal = new lion_1.lion(direction);
-                        break;
-                    case 4:
-                        animal = new giraffe_1.giraffe(direction);
-                        break;
-                }
-                if (this.list.length > this.maxAnimal - 1) {
-                    this.list[0].remove();
-                    this.list.shift();
-                }
-                animal.appendTo(this.dom);
-                animal.setWidth(this.animalWidth * this.ratio);
-                var p = new point_4.point((this.position[this.list.length][0]) * this.ratio, (this.position[this.list.length][1]) * this.ratio);
-                animal.setPosition(p);
-                this.list.push(animal);
-            };
+                animalCollection.prototype.setRatio = function (newValue) {
+                    this.ratio = newValue;
+                    for (var i = 0; i < this.list.length; i++) {
+                        var animal = this.list[i];
+                        animal.setWidth(this.animalWidth * newValue);
+                        var p = new point_4.point(this.position[i][0], this.position[i][1]);
+                        p.x = p.x * this.ratio;
+                        p.y = p.y * this.ratio;
+                        clearInterval(animal.animate);
+                        animal.setPosition(p);
+                    }
+                    ;
+                };
+                animalCollection.prototype.move = function () {
+                    for (var i = 0; i < this.list.length - 1; i++) {
+                        var animal = this.list[i];
+                        var pTarget = new point_4.point(this.position[i][0] * this.ratio, this.position[i][1] * this.ratio);
+                        if (i === 0) {
+                            animal.jump(pTarget, this.jump * this.ratio);
+                        }
+                        else {
+                            animal.moveTo(pTarget);
+                        }
+                        ;
+                    }
+                };
+                animalCollection.prototype.addAnimal = function () {
+                    var animal;
+                    var direction = Math.floor(Math.random() * 2) == 1 ? 1 : -1;
+                    switch (Math.floor(Math.random() * 5)) {
+                        case 0:
+                            animal = new snake_1.snake(direction);
+                            break;
+                        case 1:
+                            animal = new monkey_1.monkey(direction);
+                            break;
+                        case 2:
+                            animal = new elephant_1.elephant(direction);
+                            break;
+                        case 3:
+                            animal = new lion_1.lion(direction);
+                            break;
+                        case 4:
+                            animal = new giraffe_1.giraffe(direction);
+                            break;
+                    }
+                    if (this.list.length > this.maxAnimal - 1) {
+                        this.list[0].remove();
+                        this.list.shift();
+                    }
+                    animal.appendTo(this.dom);
+                    animal.setWidth(this.animalWidth * this.ratio);
+                    var p = new point_4.point((this.position[this.list.length][0]) * this.ratio, (this.position[this.list.length][1]) * this.ratio);
+                    animal.setPosition(p);
+                    this.list.push(animal);
+                };
+                return animalCollection;
+            }());
+            exports_13("animalCollection", animalCollection);
         }
     };
 });
 System.register("demo/motion/import/score/score", [], function (exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
-    function score() {
-        this.dom = document.createElement('score');
-        document.body.appendChild(this.dom);
-        this.score = 0;
-        this.dom.innerHTML = this.score.toString();
-    }
-    exports_14("score", score);
+    var score;
     return {
         setters: [],
         execute: function () {
-            ;
-            score.prototype.addScore = function (value) {
-                if (parseInt(value) < 0) {
-                    this.dom.style.color = "red";
+            score = (function () {
+                function score() {
+                    this.addScore = function (value) {
+                        if (parseInt(value) < 0) {
+                            this.dom.style.color = "red";
+                        }
+                        else {
+                            this.dom.style.color = "white";
+                        }
+                        this.dom.innerHTML = Math.round(value).toString();
+                        this.score += value;
+                    };
+                    this.dom = document.createElement('score');
+                    document.body.appendChild(this.dom);
+                    this.score = 0;
+                    this.dom.innerHTML = this.score.toString();
                 }
-                else {
-                    this.dom.style.color = "white";
-                }
-                this.dom.innerHTML = Math.round(value).toString();
-                this.score += value;
-            };
-            score.prototype.animateScore = function (value) {
-            };
+                return score;
+            }());
+            exports_14("score", score);
         }
     };
 });
 System.register("src/motion/pointer", ["src/math/point"], function (exports_15, context_15) {
     "use strict";
     var __moduleName = context_15 && context_15.id;
-    function pointer(dom) {
-        this.size = 50;
-        this.maxsize = (this.size / 2) * 3;
-        this.minsize = this.size / 2;
-        this.active = false;
-        var d = document.createElement('pointer');
-        if (dom) {
-            dom.appendChild(d);
-        }
-        else {
-            document.body.appendChild(d);
-        }
-        this.dom = d;
-        this.dom.addEventListener('mouseover', init);
-        var vm = this;
-        function init(e) {
-            document.removeEventListener('mousemove', init);
-            if (!vm.active) {
-                vm.active = true;
-                vm.dom.addEventListener('mouseover', init);
-            }
-        }
-    }
-    exports_15("pointer", pointer);
-    var point_js_1;
+    var point_js_1, pointer;
     return {
         setters: [
             function (point_js_1_1) {
@@ -1109,98 +1126,103 @@ System.register("src/motion/pointer", ["src/math/point"], function (exports_15, 
             }
         ],
         execute: function () {
-            pointer.prototype.deactivate = function () {
-                this.active = false;
-            };
-            pointer.prototype.initVector = function (v) {
-                var width;
-                var marginLeft = 0;
-                var marginTop = 0;
-                if (document.body.clientHeight < document.body.clientWidth) {
-                    width = document.body.clientHeight;
-                    marginLeft = (document.body.clientWidth - document.body.clientHeight) / 2;
+            pointer = (function () {
+                function pointer(dom) {
+                    this.size = 50;
+                    this.maxsize = (this.size / 2) * 3;
+                    this.minsize = this.size / 2;
+                    this.active = false;
+                    var d = document.createElement('pointer');
+                    if (dom) {
+                        dom.appendChild(d);
+                    }
+                    else {
+                        document.body.appendChild(d);
+                    }
+                    this.dom = d;
+                    this.dom.addEventListener('mouseover', init);
+                    var vm = this;
+                    function init(e) {
+                        document.removeEventListener('mousemove', init);
+                        if (!vm.active) {
+                            vm.active = true;
+                            vm.dom.addEventListener('mouseover', init);
+                        }
+                    }
                 }
-                else {
-                    width = document.body.clientWidth;
-                    marginTop = (document.body.clientHeight - document.body.clientWidth) / 2;
-                }
-                var padding = 100;
-                var inner = width - (2 * padding);
-                var step = inner / 11;
-                marginLeft += step * ((11 - 5) / 2);
-                var p = new point_js_1.point(((v.p1.x - 1) * step) + marginLeft + padding, ((v.p1.y - 1) * step) + padding + marginTop);
-                this.deactivate();
-                this.rotate(v);
-                this.setPosition(p);
-            };
-            pointer.prototype.rotate = function (v) {
-                this.dom.style.transform = "rotate(" + v.angle.x + "rad)";
-            };
-            pointer.prototype.getPosition = function () {
-                var x1 = this.dom.style.left ? parseInt(this.dom.style.left) : 0;
-                var y1 = this.dom.style.top ? parseInt(this.dom.style.top) : 0;
-                return new point_js_1.point(x1, y1);
-            };
-            pointer.prototype.setPosition = function (p1) {
-                this.dom.style.left = p1.x + "px";
-                this.dom.style.top = p1.y + "px";
-            };
+                pointer.prototype.deactivate = function () {
+                    this.active = false;
+                };
+                pointer.prototype.initVector = function (v) {
+                    var width;
+                    var marginLeft = 0;
+                    var marginTop = 0;
+                    if (document.body.clientHeight < document.body.clientWidth) {
+                        width = document.body.clientHeight;
+                        marginLeft = (document.body.clientWidth - document.body.clientHeight) / 2;
+                    }
+                    else {
+                        width = document.body.clientWidth;
+                        marginTop = (document.body.clientHeight - document.body.clientWidth) / 2;
+                    }
+                    var padding = 100;
+                    var inner = width - (2 * padding);
+                    var step = inner / 11;
+                    marginLeft += step * ((11 - 5) / 2);
+                    var p = new point_js_1.point(((v.p1.x - 1) * step) + marginLeft + padding, ((v.p1.y - 1) * step) + padding + marginTop);
+                    this.deactivate();
+                    this.rotate(v);
+                    this.setPosition(p);
+                };
+                pointer.prototype.rotate = function (v) {
+                    this.dom.style.transform = "rotate(" + v.angle.x + "rad)";
+                };
+                pointer.prototype.getPosition = function () {
+                    var x1 = this.dom.style.left ? parseInt(this.dom.style.left) : 0;
+                    var y1 = this.dom.style.top ? parseInt(this.dom.style.top) : 0;
+                    return new point_js_1.point(x1, y1);
+                };
+                pointer.prototype.setPosition = function (p1) {
+                    this.dom.style.left = p1.x + "px";
+                    this.dom.style.top = p1.y + "px";
+                };
+                return pointer;
+            }());
+            exports_15("pointer", pointer);
         }
     };
 });
 System.register("src/motion/marker", [], function (exports_16, context_16) {
     "use strict";
     var __moduleName = context_16 && context_16.id;
-    function marker(v, id) {
-        this.id = id;
-        this.vector = v;
-        this.x = this.vector.p1.x;
-        this.y = this.vector.p1.y;
-    }
-    exports_16("marker", marker);
+    var marker;
     return {
         setters: [],
         execute: function () {
-            marker.prototype.move = function (p1) {
-                if (!this.vector.pointBelong(p1))
-                    return false;
-                this.x = p1.x;
-                this.y = p1.y;
-                return true;
-            };
+            marker = (function () {
+                function marker(v, id) {
+                    this.id = id;
+                    this.vector = v;
+                    this.x = this.vector.p1.x;
+                    this.y = this.vector.p1.y;
+                }
+                marker.prototype.move = function (p1) {
+                    if (!this.vector.pointBelong(p1))
+                        return false;
+                    this.x = p1.x;
+                    this.y = p1.y;
+                    return true;
+                };
+                return marker;
+            }());
+            exports_16("marker", marker);
         }
     };
 });
 System.register("src/motion/motion", ["src/motion/pointer", "src/motion/marker", "src/math/vector", "src/math/point"], function (exports_17, context_17) {
     "use strict";
     var __moduleName = context_17 && context_17.id;
-    function motion(param) {
-        var section = document.createElement("section");
-        section.id = "motion";
-        document.body.appendChild(section);
-        var canvas = document.createElement("canvas");
-        canvas.style.position = "fixed";
-        canvas.style.zIndex = "500";
-        section.appendChild(canvas);
-        this.style = {
-            width: 130,
-            height: (140 / 6) * 12,
-            bottom: 180,
-            left: 280
-        };
-        this.pointer = new pointer_1.pointer(section);
-        this.ctx = canvas.getContext('2d');
-        this.dom = canvas;
-        this.setRatio(1);
-        this.precisionLevel = param ? param.precisionLevel ? param.precisionLevel : 3 : 3;
-        this.drawnNextMarker = param ? param.drawnNextMarker ? param.drawnNextMarker : false : false;
-        this.sensitivityWeighting = param ? param.sensitivityWeighting ? sensitivityWeighting : 80 : 80;
-        this.shape = new Array;
-        this.userPrecision;
-        this.marker;
-    }
-    exports_17("motion", motion);
-    var pointer_1, marker_1, vector_js_1, point_js_2, posOrtho;
+    var pointer_1, marker_1, vector_js_1, point_js_2, posOrtho, motion;
     return {
         setters: [
             function (pointer_1_1) {
@@ -1218,145 +1240,173 @@ System.register("src/motion/motion", ["src/motion/pointer", "src/motion/marker",
         ],
         execute: function () {
             posOrtho = { x: 0, y: 1, z: 2 };
-            ;
-            motion.prototype.setRatio = function (ratio) {
-                if (!this.pointer.active) {
-                    if (this.marker) {
-                        this.pointer.initVector(this.marker.vector);
-                    }
+            motion = (function () {
+                function motion(param) {
+                    var section = document.createElement("section");
+                    section.id = "motion";
+                    document.body.appendChild(section);
+                    var canvas = document.createElement("canvas");
+                    canvas.style.position = "fixed";
+                    canvas.style.zIndex = "500";
+                    section.appendChild(canvas);
+                    this.style = {
+                        width: 130,
+                        height: (140 / 6) * 12,
+                        bottom: 180,
+                        left: 280
+                    };
+                    this.pointer = new pointer_1.pointer(section);
+                    this.ctx = canvas.getContext('2d');
+                    this.dom = canvas;
+                    this.setRatio(1);
+                    this.precisionLevel = param ? param.precisionLevel ? param.precisionLevel : 3 : 3;
+                    this.drawnNextMarker = param ? param.drawnNextMarker ? param.drawnNextMarker : false : false;
+                    this.sensitivityWeighting = param ? param.sensitivityWeighting ? sensitivityWeighting : 80 : 80;
+                    this.shape = new Array;
+                    this.userPrecision;
+                    this.marker;
                 }
-                ;
-                this.dom.width = this.style.width * ratio;
-                this.dom.height = this.style.height * ratio;
-                this.dom.style.bottom = this.style.bottom * ratio + "px";
-                this.dom.style.left = this.style.left * ratio + "px";
-                this.circleSize = ratio * this.style.width / 20;
-                this.markerSize = ratio * this.style.width / 10;
-                this.step = (this.style.width - (4 * this.circleSize)) / 7 * ratio;
-                if (this.shape && this.marker) {
+                motion.prototype.setRatio = function (ratio) {
+                    if (!this.pointer.active) {
+                        if (this.marker) {
+                            this.pointer.initVector(this.marker.vector);
+                        }
+                    }
+                    ;
+                    this.dom.width = this.style.width * ratio;
+                    this.dom.height = this.style.height * ratio;
+                    this.dom.style.bottom = this.style.bottom * ratio + "px";
+                    this.dom.style.left = this.style.left * ratio + "px";
+                    this.circleSize = ratio * this.style.width / 20;
+                    this.markerSize = ratio * this.style.width / 10;
+                    this.step = (this.style.width - (4 * this.circleSize)) / 7 * ratio;
+                    if (this.shape && this.marker) {
+                        this.draw();
+                    }
+                    ;
+                };
+                motion.prototype.analysis = function (arrayPoint, emove) {
+                    this.setShape(arrayPoint);
+                    for (var i = 0; i < emove.length; i++) {
+                        var p = new point_js_2.point(emove[i].x, emove[i].y);
+                        this.move(p);
+                    }
+                    ;
+                    return this.userPrecision;
+                };
+                motion.prototype.mouseFollow = function (arrayPoint, callback, e) {
+                    if (e)
+                        this.cursorOld = e.pageX, e.pageY;
+                    document.addEventListener('mousemove', move);
+                    var vm = this;
+                    function move(e) {
+                        var p = new point_js_2.point(e.pageX, e.pageY);
+                        if (!vm.move(p)) {
+                            callback(vm);
+                            document.removeEventListener('mousemove', move);
+                        }
+                    }
+                    ;
+                    this.setShape(arrayPoint);
+                };
+                motion.prototype.setShape = function (arrayPoint) {
+                    this.userPrecision = 0;
+                    this.shape = new Array;
+                    for (var i = 0; i < arrayPoint.length - 1; i++) {
+                        var pV = new vector_js_1.vector();
+                        var point1 = new point_js_2.point(arrayPoint[i][posOrtho.x], arrayPoint[i][posOrtho.y]);
+                        var point2 = new point_js_2.point(arrayPoint[i + 1][posOrtho.x], arrayPoint[i + 1][posOrtho.y]);
+                        pV.setPoint(point1, point2);
+                        this.shape.push(pV);
+                    }
+                    ;
+                    this.marker = new marker_1.marker(this.shape[0], 0);
+                    this.pointer.initVector(this.shape[0]);
                     this.draw();
-                }
-                ;
-            };
-            motion.prototype.analysis = function (arrayPoint, emove) {
-                this.setShape(arrayPoint);
-                for (var i = 0; i < emove.length; i++) {
-                    var p = new point_js_2.point(emove[i].x, emove[i].y);
-                    this.move(p);
-                }
-                ;
-                return this.userPrecision;
-            };
-            motion.prototype.mouseFollow = function (arrayPoint, callback, e) {
-                if (e)
-                    this.cursorOld = e.pageX, e.pageY;
-                document.addEventListener('mousemove', move);
-                var vm = this;
-                function move(e) {
-                    var p = new point_js_2.point(e.pageX, e.pageY);
-                    if (!vm.move(p)) {
-                        callback(vm);
-                        document.removeEventListener('mousemove', move);
-                    }
-                }
-                ;
-                this.setShape(arrayPoint);
-            };
-            motion.prototype.setShape = function (arrayPoint) {
-                this.userPrecision = 0;
-                this.shape = new Array;
-                for (var i = 0; i < arrayPoint.length - 1; i++) {
-                    var pV = new vector_js_1.vector();
-                    var point1 = new point_js_2.point(arrayPoint[i][posOrtho.x], arrayPoint[i][posOrtho.y]);
-                    var point2 = new point_js_2.point(arrayPoint[i + 1][posOrtho.x], arrayPoint[i + 1][posOrtho.y]);
-                    pV.setPoint(point1, point2);
-                    this.shape.push(pV);
-                }
-                ;
-                this.marker = new marker_1.marker(this.shape[0], 0);
-                this.pointer.initVector(this.shape[0]);
-                this.draw();
-            };
-            motion.prototype.move = function (point2) {
-                if (this.pointer.active) {
-                    this.pointer.setPosition(point2);
-                    if (!this.cursorOld)
+                };
+                motion.prototype.move = function (point2) {
+                    if (this.pointer.active) {
+                        this.pointer.setPosition(point2);
+                        if (!this.cursorOld)
+                            this.cursorOld = point2;
+                        var vCursor = new vector_js_1.vector();
+                        var point1 = new point_js_2.point(this.cursorOld.x, this.cursorOld.y);
+                        vCursor.setPoint(point1, point2);
                         this.cursorOld = point2;
-                    var vCursor = new vector_js_1.vector();
-                    var point1 = new point_js_2.point(this.cursorOld.x, this.cursorOld.y);
-                    vCursor.setPoint(point1, point2);
-                    this.cursorOld = point2;
-                    var diffAngle = vCursor.angle.x - this.marker.vector.angle.x;
-                    if (diffAngle > Math.PI) {
-                        diffAngle = this.marker.vector.angle.x - vCursor.angle.x;
-                    }
-                    diffAngle = Math.abs(diffAngle);
-                    if (diffAngle > Math.PI / 2)
-                        diffAngle = Math.PI / 2;
-                    var invDiffAngle = (Math.PI / 2 - diffAngle);
-                    var precision;
-                    if (invDiffAngle > 0) {
-                        precision = Math.pow((invDiffAngle * 10), this.precisionLevel) * vCursor.distance;
-                    }
-                    else {
-                        precision = Math.pow((4 * 10), this.precisionLevel) * vCursor.distance;
-                    }
-                    this.userPrecision -= precision;
-                    if (invDiffAngle > 0) {
-                        var posX = this.marker.x - (Math.pow((invDiffAngle), 2) * vCursor.distance * Math.cos(this.marker.vector.angle.x) / (this.sensitivityWeighting));
-                        var posY = this.marker.y - (Math.pow((invDiffAngle), 2) * vCursor.distance * Math.sin(this.marker.vector.angle.x) / (this.sensitivityWeighting));
-                        if (this.marker.move(new point_js_2.point(posX, posY))) {
-                            this.draw();
+                        var diffAngle = vCursor.angle.x - this.marker.vector.angle.x;
+                        if (diffAngle > Math.PI) {
+                            diffAngle = this.marker.vector.angle.x - vCursor.angle.x;
+                        }
+                        diffAngle = Math.abs(diffAngle);
+                        if (diffAngle > Math.PI / 2)
+                            diffAngle = Math.PI / 2;
+                        var invDiffAngle = (Math.PI / 2 - diffAngle);
+                        var precision;
+                        if (invDiffAngle > 0) {
+                            precision = Math.pow((invDiffAngle * 10), this.precisionLevel) * vCursor.distance;
                         }
                         else {
-                            var id = this.marker.id + 1;
-                            if (id >= this.shape.length)
-                                return false;
-                            this.marker = new marker_1.marker(this.shape[id], id);
-                            this.pointer.rotate(this.shape[id]);
+                            precision = Math.pow((4 * 10), this.precisionLevel) * vCursor.distance;
                         }
-                        ;
+                        this.userPrecision -= precision;
+                        if (invDiffAngle > 0) {
+                            var posX = this.marker.x - (Math.pow((invDiffAngle), 2) * vCursor.distance * Math.cos(this.marker.vector.angle.x) / (this.sensitivityWeighting));
+                            var posY = this.marker.y - (Math.pow((invDiffAngle), 2) * vCursor.distance * Math.sin(this.marker.vector.angle.x) / (this.sensitivityWeighting));
+                            if (this.marker.move(new point_js_2.point(posX, posY))) {
+                                this.draw();
+                            }
+                            else {
+                                var id = this.marker.id + 1;
+                                if (id >= this.shape.length)
+                                    return false;
+                                this.marker = new marker_1.marker(this.shape[id], id);
+                                this.pointer.rotate(this.shape[id]);
+                            }
+                            ;
+                        }
                     }
-                }
-                return true;
-            };
-            motion.prototype.draw = function () {
-                this.ctx.clearRect(0, 0, this.dom.offsetWidth, this.dom.offsetHeight);
-                this.ctx.strokeStyle = '#8B5E3C';
-                for (var i = 0; i < this.shape.length; i++) {
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(this.shape[i].p1.x * this.step, this.shape[i].p1.y * this.step);
-                    this.ctx.lineTo(this.shape[i].p2.x * this.step, this.shape[i].p2.y * this.step);
-                    this.ctx.stroke();
-                    this.ctx.closePath();
-                }
-                for (var i = 0; i < this.shape.length; i++) {
-                    this.ctx.beginPath();
-                    this.ctx.arc(this.shape[i].p1.x * this.step, this.shape[i].p1.y * this.step, this.circleSize, 0, Math.PI * 2, true);
-                    if (i > this.marker.id) {
-                        if (i === this.marker.id + 1) {
-                            this.ctx.fillStyle = "rgba(139, 94, 60, 1)";
-                            this.ctx.fill();
-                        }
-                        else {
-                            if (this.drawnNextMarker) {
-                                this.ctx.fillStyle = "rgba(139, 94, 60, 0.2)";
+                    return true;
+                };
+                motion.prototype.draw = function () {
+                    this.ctx.clearRect(0, 0, this.dom.offsetWidth, this.dom.offsetHeight);
+                    this.ctx.strokeStyle = '#8B5E3C';
+                    for (var i = 0; i < this.shape.length; i++) {
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(this.shape[i].p1.x * this.step, this.shape[i].p1.y * this.step);
+                        this.ctx.lineTo(this.shape[i].p2.x * this.step, this.shape[i].p2.y * this.step);
+                        this.ctx.stroke();
+                        this.ctx.closePath();
+                    }
+                    for (var i = 0; i < this.shape.length; i++) {
+                        this.ctx.beginPath();
+                        this.ctx.arc(this.shape[i].p1.x * this.step, this.shape[i].p1.y * this.step, this.circleSize, 0, Math.PI * 2, true);
+                        if (i > this.marker.id) {
+                            if (i === this.marker.id + 1) {
+                                this.ctx.fillStyle = "rgba(139, 94, 60, 1)";
                                 this.ctx.fill();
                             }
+                            else {
+                                if (this.drawnNextMarker) {
+                                    this.ctx.fillStyle = "rgba(139, 94, 60, 0.2)";
+                                    this.ctx.fill();
+                                }
+                            }
                         }
+                        else {
+                            this.ctx.fillStyle = "rgba(118, 78, 41, 1)";
+                            this.ctx.fill();
+                        }
+                        this.ctx.closePath();
                     }
-                    else {
-                        this.ctx.fillStyle = "rgba(118, 78, 41, 1)";
-                        this.ctx.fill();
-                    }
+                    this.ctx.beginPath();
+                    this.ctx.fillStyle = "rgba(118, 78, 41, 0.3)";
+                    this.ctx.arc(this.marker.x * this.step, this.marker.y * this.step, this.markerSize, 0, Math.PI * 2, true);
                     this.ctx.closePath();
-                }
-                this.ctx.beginPath();
-                this.ctx.fillStyle = "rgba(118, 78, 41, 0.3)";
-                this.ctx.arc(this.marker.x * this.step, this.marker.y * this.step, this.markerSize, 0, Math.PI * 2, true);
-                this.ctx.closePath();
-                this.ctx.fill();
-            };
+                    this.ctx.fill();
+                };
+                return motion;
+            }());
+            exports_17("motion", motion);
         }
     };
 });

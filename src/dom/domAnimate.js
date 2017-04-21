@@ -3,7 +3,6 @@ var fps = 30;
 import  {domCss} from "./domCss";
 
 
-
 function cloneAnimate(vm) {
     var clone = function () { 
         this.style= vm.style;
@@ -152,12 +151,9 @@ function delay(time) {
 
 function animate(json, time) {
     this.pushAnimate("animate", [time, json]);
-
     this.play();
     return cloneAnimate(this);
 }
-
-
 
 export function domAnimate(e) {
     var e = e[0] ? e[0] : e;
