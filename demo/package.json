@@ -10,6 +10,8 @@
     "compression": "concurrently \"tsc -p .\\compression\\ --watch --allowJs\" \"browser-sync start --config .\\compression\\proxy.js \"  ",
     "dom": "concurrently \"tsc -p .\\dom\\ --watch --allowJs\" \"browser-sync start --config .\\dom\\proxy.js \"  ",
     "math": "concurrently \"tsc -p .\\math\\ --watch --allowJs\" \"browser-sync start --config .\\math\\proxy.js \"  ",
-    "motion": "concurrently \"tsc -p .\\motion\\ --watch --allowJs\" \"browser-sync start --config .\\motion\\proxy.js \"  "
+    "motion": "concurrently \"tsc -p .\\motion\\ --watch --allowJs\" \"browser-sync start --config .\\motion\\proxy.js \"  ",
+    "securityEcma6": "concurrently \"tsc -p .\\security\\ecma6\\ --watch --allowJs\" \"browser-sync start --config .\\security\\ecma6\\proxy.js \"  ",    
+    "securityEcma5": "concurrently \"tsc -p .\\security\\ecma5\\ --watch --allowJs\" \"browser-sync start --config .\\security\\ecma5\\proxy.js \"  "    
   }
 }

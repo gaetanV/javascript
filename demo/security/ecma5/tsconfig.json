@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "system", 
+        "outFile": "app/package.js",
+        "sourceMap": false,
+        "removeComments": true,
+        "baseUrl": "./../../../",
+        "paths": {
+           "ecma5Private": ["src/security/ecma5Private.js"]
+        }  
+    },
+    "include": [
+        "./../../node_modules/systemjs/dist/system-production.js",
+        "boot.js"
+    ]
+}
+
+
+
